@@ -16,7 +16,7 @@ import objetos.Examen;
  */
 public class AccesoAExamen {
 
-    public void insertarNuevoExamen(Examen examen) {
+    public boolean insertarNuevoExamen(Examen examen) {
         String queryDividido1 = "INSERT INTO Examen(Codigo, Nombre, Orden, Descripcion, Costo, Formato, Estado) "
                 + "VALUES(?,?,?,?,?,?,?)";
 
@@ -33,9 +33,11 @@ public class AccesoAExamen {
             enviarDividido1.setString(6, examen.getFormato());
             enviarDividido1.setBoolean(7, examen.isEstado());
             enviarDividido1.executeUpdate();
+            return true;
 
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
+            return false;
         }
 
     }

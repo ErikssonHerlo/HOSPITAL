@@ -16,7 +16,7 @@ import objetos.Consulta;
  * @author erikssonherlo
  */
 public class AccesoAConsulta {
-        public void insertarNuevaConsulta(Consulta consulta) {
+        public boolean insertarNuevaConsulta(Consulta consulta) {
         String queryDividido1 = "INSERT INTO Consulta(Tipo, Costo) "
                 + "VALUES(?,?)";
 
@@ -28,11 +28,12 @@ public class AccesoAConsulta {
             enviarDividido1.setString(1, consulta.getTipo());
             enviarDividido1.setDouble(2, consulta.getCosto());
             enviarDividido1.executeUpdate();
-
+            return true;
            
 
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
+        return false;
         }
 
     }

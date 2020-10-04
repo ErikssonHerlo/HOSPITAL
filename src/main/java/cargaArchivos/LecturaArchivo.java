@@ -8,9 +8,11 @@ package cargaArchivos;
 import accesoAObjetos.AccesoAAdministrador;
 import accesoAObjetos.AccesoAConsulta;
 import accesoAObjetos.AccesoAExamen;
+import accesoAObjetos.AccesoAInforme;
 import accesoAObjetos.AccesoALaboratorista;
 import accesoAObjetos.AccesoAMedico;
 import accesoAObjetos.AccesoAPaciente;
+import accesoAObjetos.AccesoAResultado;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,9 +24,11 @@ import objetos.Administrador;
 import objetos.Consulta;
 import objetos.Especialidad;
 import objetos.Examen;
+import objetos.Informe;
 import objetos.Laboratorista;
 import objetos.Medico;
 import objetos.Paciente;
+import objetos.Resultado;
 import objetos.Turno;
 import objetos.Usuario;
 import org.w3c.dom.Document;
@@ -38,15 +42,20 @@ import org.xml.sax.SAXException;
  * @author erikssonherlo
  */
 public class LecturaArchivo {
-    private int idAgenda;
 
-
+    /**
+     * ORDEN DE CARGA DE ARCHIVO 1 - Examen | 2 - Administrador | 3 - Paciente |
+     * 4 - Medico | 5 - Especialidad | 6 - Laboratorista | 7 - Turno | 8 -
+     * Consulta | 9 - Informe | 10 - Resultado | 11 - Cita_Medico | 12 -
+     * Ingresos_Medico | 13 - Cita_Laboratorio | 14 - Ingresos_Laboratorio |
+     *
+     * @param nombreArchivo
+     */
     public void dividirEtiquetas(String nombreArchivo) {
-        
-       //String path = "/home/julio/Documentos/IPC/Hospital/Proyecto2/data.xml";
-       String path = "/home/erikssonherlo/NetBeansProjects/HOSPITAL/src/main/webapp/ArchivosDB/"+nombreArchivo;
+
+        String path = "/home/erikssonherlo/NetBeansProjects/HOSPITAL/src/main/webapp/ArchivosDB/" + nombreArchivo;
         try {
-            
+
             // Creo una instancia de DocumentBuilderFactory
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             // Creo un documentBuilder
@@ -56,26 +65,25 @@ public class LecturaArchivo {
             Document documento = builder.parse(new File(path));
 
             // Cojo todas las etiquetas admin del documento
-            NodeList listaDoctores = documento.getElementsByTagName("doctor");
-            NodeList listaAdmins = documento.getElementsByTagName("admin");
-            NodeList listaLaboratoristas = documento.getElementsByTagName("laboratorista");
-            NodeList listaPaciente = documento.getElementsByTagName("paciente");
             NodeList listadoExamen = documento.getElementsByTagName("examen");
-
+            NodeList listaAdmins = documento.getElementsByTagName("admin");
+            NodeList listaPaciente = documento.getElementsByTagName("paciente");
+            NodeList listaDoctores = documento.getElementsByTagName("doctor");
+            NodeList listaLaboratoristas = documento.getElementsByTagName("laboratorista");
+            NodeList listadoConsulta = documento.getElementsByTagName("consulta");
             NodeList listadoInforme = documento.getElementsByTagName("reporte");
             NodeList listadoResultado = documento.getElementsByTagName("resultado");
             NodeList listadoCita = documento.getElementsByTagName("cita");
-            NodeList listadoConsulta = documento.getElementsByTagName("consulta");
 
+            etiquetaExamenDB(listadoExamen);
             etiquetaAdminDB(listaAdmins);
-            //etiquetaDoctorDB(listaDoctores);
-            //etiquetaLaboratoristaDB(listaLaboratoristas);
             etiquetaPacienteDB(listaPaciente);
-            //etiquetaExamenDB(listadoExamen);
-            //tagInforme(listadoInforme);
-            //tagResultado(listadoResultado);
-           // tagCita(listadoCita);
-           // tagConsulta(listadoConsulta);
+            etiquetaDoctorDB(listaDoctores);
+            etiquetaLaboratoristaDB(listaLaboratoristas);
+            etiquetaConsultaDB(listadoConsulta);
+            etiquetaInformeDB(listadoInforme);
+            etiquetaResultadoDB(listadoResultado);
+            // tagCita(listadoCita);
 
         } catch (ParserConfigurationException | SAXException | IOException ex) {
             System.out.println(ex.getMessage());
@@ -83,17 +91,19 @@ public class LecturaArchivo {
     }
 
     /**
-     * Recibe todos los atributos con la etiqueta <admin> y lo envia al accesoAObjetos y se rellena la base de Datos
-     * DB indica el envio a la base de datos
-     * @param listaAdmin 
+     * Recibe todos los atributos con la etiqueta <admin> y lo envia al
+     * accesoAObjetos y se rellena la base de Datos DB indica el envio a la base
+     * de datos
+     *
+     * @param listaAdmin
      */
     public void etiquetaAdminDB(NodeList listaAdmin) {
 
         Administrador admin; // Recorro las etiquetas
         System.out.println(" <========>Especialidad");
         for (int i = 0; i < listaAdmin.getLength(); i++) {
-            admin  = new Administrador("", "", "", "", "", "", 1);
-       
+            admin = new Administrador("", "", "", "", "", "", 1);
+
             // Cojo el nodo actual
             Node nodo = listaAdmin.item(i);
             // Compruebo si el nodo es un elemento
@@ -135,8 +145,8 @@ public class LecturaArchivo {
                     }
 
                 }
-                AccesoAAdministrador  nuevoAdmin = new AccesoAAdministrador();
-                if(nuevoAdmin.insertarNuevoAdministrador(admin)){
+                AccesoAAdministrador nuevoAdmin = new AccesoAAdministrador();
+                if (nuevoAdmin.insertarNuevoAdministrador(admin)) {
                     System.out.println("Administrador Agregado Correctamente");
                 }
 
@@ -146,20 +156,22 @@ public class LecturaArchivo {
     }
 
     /**
-     * Recibe todos los atributos con la etiqueta <doctor> y lo envia al accesoAObjetos y se rellena la base de Datos
-     * DB indica el envio a la base de datos
-     * @param listaDoctor 
+     * Recibe todos los atributos con la etiqueta <doctor> y lo envia al
+     * accesoAObjetos y se rellena la base de Datos DB indica el envio a la base
+     * de datos
+     *
+     * @param listaDoctor
      */
     public void etiquetaDoctorDB(NodeList listaDoctor) {
         // Recorro las etiquetas
-        
-        Medico medico ;
+
+        Medico medico;
         String[] horario = new String[2];
         List<String> especialidades = new ArrayList<>();
 
         for (int i = 0; i < listaDoctor.getLength(); i++) {
             medico = new Medico("", "", "", "", "", "", 2, 0, "", "", "", true);
-       
+            especialidades.clear();
             // Cojo el nodo actual
             Node nodo = listaDoctor.item(i);
             // Compruebo si el nodo es un elemento
@@ -191,12 +203,11 @@ public class LecturaArchivo {
 
                 }
                 //Ultimos Atributos del Objeto Medico, para enviar al DAO
-                medico.setHoraEntrada((String) horario[0]+":00");
-                medico.setHoraSalida((String) horario[1]+":00");
+                medico.setHoraEntrada((String) horario[0]);
+                medico.setHoraSalida((String) horario[1]);
                 //Creacion de la especialidad, para enviarla a la base de datos
                 Especialidad es = new Especialidad(especialidades, true);
-                    
-                    
+
                 AccesoAMedico nuevoMedico = new AccesoAMedico();
                 nuevoMedico.insertarNuevoMedico(medico, es);
                 System.out.println("");
@@ -206,26 +217,28 @@ public class LecturaArchivo {
     }
 
     /**
-     * Recibe todos los atributos con la etiqueta <laboratorista> y lo envia al accesoAObjetos y se rellena la base de Datos
-     * DB indica el envio a la base de datos
-     * @param listadoLaboratorista 
+     * Recibe todos los atributos con la etiqueta <laboratorista> y lo envia al
+     * accesoAObjetos y se rellena la base de Datos DB indica el envio a la base
+     * de datos
+     *
+     * @param listadoLaboratorista
      */
     public void etiquetaLaboratoristaDB(NodeList listadoLaboratorista) {
         // Recorro las etiquetas
         System.out.println(" <========>Laboratorista");
 
         Laboratorista laboratorista;
-        String[] horario ;
-        List<String> turnos ;
-        
+
+        List<String> turnos = new ArrayList<>();
+
         for (int i = 0; i < listadoLaboratorista
                 .getLength(); i++) {
-            
+
             //---------------------------PREGUNTAR LAS DIFERENCIAS DE INSTANCIAR EL OBJETO ANTES DEL FOR (MEDICO Y ADMIN) VS. DENTRO DEL FOR (LABORATORISTA)
-            laboratorista = new Laboratorista("", "", "", "", "", "", 2,"", "", "", true);
-            horario = new String[2];
-            turnos = new ArrayList<>();
-            
+            laboratorista = new Laboratorista("123", "", "", "", "", "", 2, "", "", "", true, 1);
+
+            turnos.clear();
+
             // Cojo el nodo actual
             Node nodo = listadoLaboratorista.item(i);
             // Compruebo si el nodo es un elemento
@@ -242,46 +255,48 @@ public class LecturaArchivo {
                     if (hijo.getNodeType() == Node.ELEMENT_NODE) {
                         // Muestro el contenido
 
-                        if (!hijo.getNodeName().equalsIgnoreCase("trabajo")) {
+                        if (hijo.getNodeName().equalsIgnoreCase("trabajo")) {
 
                             System.out.println("Propiedad: " + hijo.getNodeName()
                                     + ", Valor: " + hijo.getTextContent());
-                            crearLaboratorista(laboratorista, hijo.getNodeName(), hijo.getTextContent());
-                        } else {
                             //dias que trabaja
                             turnos = tagTrabajo(hijo);
+                        } else {
+
+                            crearLaboratorista(laboratorista, hijo.getNodeName(), hijo.getTextContent());
+
                         }
                     }
 
                 }
-                
-                
-             
-                    Turno nuevoTurno = new Turno(turnos);
-                    
-               
-                   AccesoALaboratorista nuevoLaboratorista = new AccesoALaboratorista();
-                   nuevoLaboratorista.insertarNuevoLaboratorista(laboratorista, nuevoTurno);
-                   System.out.println("");
+
+                Turno nuevoTurno = new Turno(turnos);
+
+                AccesoALaboratorista nuevoLaboratorista = new AccesoALaboratorista();
+                nuevoLaboratorista.insertarNuevoLaboratorista(laboratorista, nuevoTurno);
+                System.out.println("");
             }
 
         }
     }
-/**
- * Recibe todos los atributos con la etiqueta <paciente> y lo envia al accesoAObjetos y se rellena la base de Datos
- * DB indica el envio a la base de datos
- * @param listadoPaciente 
- */
+
+    /**
+     * Recibe todos los atributos con la etiqueta <paciente> y lo envia al
+     * accesoAObjetos y se rellena la base de Datos DB indica el envio a la base
+     * de datos
+     *
+     * @param listadoPaciente
+     */
     public void etiquetaPacienteDB(NodeList listadoPaciente) {
         // Recorro las etiquetas
         System.out.println(" <========>Paciente");
-        
+
         Paciente paciente;
-        
+
         for (int i = 0; i < listadoPaciente.getLength(); i++) {
-            
+
             paciente = new Paciente("", "", "", "", "", "", 3, "", "", "", "", true);
-            
+
             // Cojo el nodo actual
             Node nodo = listadoPaciente.item(i);
             // Compruebo si el nodo es un elemento
@@ -301,7 +316,7 @@ public class LecturaArchivo {
                         System.out.println("Propiedad: " + hijo.getNodeName()
                                 + ", Valor: " + hijo.getTextContent());
                         crearPaciente(paciente, hijo.getNodeName(), hijo.getTextContent());
-             
+
                     }
 
                 }
@@ -315,18 +330,21 @@ public class LecturaArchivo {
 
         }
     }
-/**
- * Recibe todos los atributos con la etiqueta <examen> y lo envia al accesoAObjetos y se rellena la base de Datos
- * DB indica el envio a la base de datos
- * @param listadoExamen 
- */
+
+    /**
+     * Recibe todos los atributos con la etiqueta <examen> y lo envia al
+     * accesoAObjetos y se rellena la base de Datos DB indica el envio a la base
+     * de datos
+     *
+     * @param listadoExamen
+     */
     public void etiquetaExamenDB(NodeList listadoExamen) {
         // Recorro las etiquetas
         System.out.println(" <========>Examen");
         Examen examen;
-        
+
         for (int i = 0; i < listadoExamen.getLength(); i++) {
-            
+
             examen = new Examen(0, "", true, "", 0.00, "", true);
             // Cojo el nodo actual
             Node nodo = listadoExamen.item(i);
@@ -347,7 +365,7 @@ public class LecturaArchivo {
                         System.out.println("Propiedad: " + hijo.getNodeName()
                                 + ", Valor: " + hijo.getTextContent());
                         crearExamen(examen, hijo.getNodeName(), hijo.getTextContent());
-             
+
                     }
 
                 }
@@ -359,10 +377,12 @@ public class LecturaArchivo {
         }
     }
 
-    public static void tagInforme(NodeList listadoInforme) {
+    public void etiquetaInformeDB(NodeList listadoInforme) {
         // Recorro las etiquetas
-        System.out.println(" <========>Examen");
+        System.out.println(" <========>Informe");
+        Informe informe;
         for (int i = 0; i < listadoInforme.getLength(); i++) {
+            informe = new Informe(1, "", "", "", "", "", true);
             // Cojo el nodo actual
             Node nodo = listadoInforme.item(i);
             // Compruebo si el nodo es un elemento
@@ -381,20 +401,24 @@ public class LecturaArchivo {
 
                         System.out.println("Propiedad: " + hijo.getNodeName()
                                 + ", Valor: " + hijo.getTextContent());
-
+                        crearInforme(informe, hijo.getNodeName(), hijo.getTextContent());
                     }
 
                 }
+                AccesoAInforme nuevoInforme = new AccesoAInforme();
+                nuevoInforme.insertarNuevoInformeCA(informe);
                 System.out.println("");
             }
 
         }
     }
 
-    public static void tagResultado(NodeList listadoResultado) {
+    public void etiquetaResultadoDB(NodeList listadoResultado) {
         // Recorro las etiquetas
-        System.out.println(" <========>Examen");
+        System.out.println(" <========>Resultado");
+        Resultado resultado;
         for (int i = 0; i < listadoResultado.getLength(); i++) {
+            resultado = new Resultado(1, "", "", "", 1, "", "", "", "", true);
             // Cojo el nodo actual
             Node nodo = listadoResultado.item(i);
             // Compruebo si el nodo es un elemento
@@ -413,17 +437,20 @@ public class LecturaArchivo {
 
                         System.out.println("Propiedad: " + hijo.getNodeName()
                                 + ", Valor: " + hijo.getTextContent());
-                        
-
+                                crearResultado(resultado, hijo.getNodeName(), hijo.getTextContent());
                     }
 
                 }
+                
+                AccesoAResultado nuevoResultado = new AccesoAResultado();
+                nuevoResultado.insertarNuevoResultadoCA(resultado);
                 System.out.println("");
             }
 
         }
     }
-/*
+
+    /*
     public void tagCita(NodeList listadoDeCitas) {
         // Recorro las etiquetas
         System.out.println(" <========>Examen");
@@ -550,8 +577,8 @@ public class LecturaArchivo {
  * Recibe todos los atributos con la etiqueta <consulta> y lo envia al accesoAObjetos y se rellena la base de Datos
  * DB indica el envio a la base de datos
  * @param listadoDeConsultas 
- */
-    /*
+     */
+ 
     public void etiquetaConsultaDB(NodeList listadoDeConsultas) {
         Consulta consulta;
         // Recorro las etiquetas
@@ -587,10 +614,11 @@ public class LecturaArchivo {
 
         }
     }
-*/
+     
     public List<String> tagEspecialidad(Node especialidad) {
         // Recorro las etiquetas
         List<String> especilidadesMedicas = new ArrayList<>();
+        especilidadesMedicas.clear();
         System.out.println("<========>Especialidad<========>Especialidad<========>");
         // for (int i = 0; i < especialidad.getLength(); i++) {
         // Cojo el nodo actual
@@ -663,6 +691,7 @@ public class LecturaArchivo {
         System.out.println("<========>DIas de Trabajo Laboratorista<========>");
 
         List<String> diasDeTrabajo = new ArrayList<>();
+        diasDeTrabajo.clear();
         Node nodo = trabajoLab;
         // Compruebo si el nodo es un elemento
         if (nodo.getNodeType() == Node.ELEMENT_NODE) {
@@ -692,15 +721,16 @@ public class LecturaArchivo {
         return diasDeTrabajo;
     }
 
-
     /**
-     * Metodo que recibe la etiqueta y el atributo y lo almacena dentro del objeto
+     * Metodo que recibe la etiqueta y el atributo y lo almacena dentro del
+     * objeto medico
+     *
      * @param medico = objeto
      * @param tag = etiqueta del Archivo XML
      * @param atributo = valor que llenara al objeto
      */
     public void crearMedico(Medico medico, String tag, String atributo) {
-        
+
         switch (tag.toUpperCase()) {
             case "CODIGO":
                 medico.setCodigo(atributo);
@@ -729,7 +759,14 @@ public class LecturaArchivo {
             default:
         }
     }
-
+    /**
+     * Metodo que recibe la etiqueta y el atributo y lo almacena dentro del
+     * objeto lab
+     *
+     * @param lab = objeto
+     * @param tag = etiqueta del Archivo XML
+     * @param atributo = valor que llenara al objeto
+     */
     public void crearLaboratorista(Laboratorista lab, String tag, String atributo) {
 
         switch (tag.toUpperCase()) {
@@ -748,15 +785,14 @@ public class LecturaArchivo {
             case "TELEFONO":
                 lab.setTelefono(atributo);
                 break;
-            case "EXAMEN": 
+            case "EXAMEN":
                 lab.setNombreExamen(atributo);
                 break;
             case "CORREO":
                 lab.setCorreo(atributo);
                 break;
-           
-                //case para la Etiqueta Trabajo, ira en un arraylist arriba
-           
+
+            //case para la Etiqueta Trabajo, ira en un arraylist arriba
             case "TRABAJOF":
                 lab.setFechaInicio(atributo);
                 break;
@@ -768,6 +804,14 @@ public class LecturaArchivo {
         }
 
     }
+        /**
+     * Metodo que recibe la etiqueta y el atributo y lo almacena dentro del
+     * objeto paciente
+     *
+     * @param paciente = objeto
+     * @param tag = etiqueta del Archivo XML
+     * @param atributo = valor que llenara al objeto
+     */
 
     public void crearPaciente(Paciente paciente, String tag, String atributo) {
 
@@ -790,7 +834,7 @@ public class LecturaArchivo {
             case "TELEFONO":
                 paciente.setTelefono(atributo);
                 break;
-            case "PESO": 
+            case "PESO":
                 paciente.setPeso(atributo);
                 break;
             case "SANGRE":
@@ -807,7 +851,14 @@ public class LecturaArchivo {
         }
 
     }
-
+    /**
+     * Metodo que recibe la etiqueta y el atributo y lo almacena dentro del
+     * objeto examen
+     *
+     * @param examen = objeto
+     * @param tag = etiqueta del Archivo XML
+     * @param atributo = valor que llenara al objeto
+     */
     public void crearExamen(Examen examen, String tag, String atributo) {
 
         switch (tag.toUpperCase()) {
@@ -818,7 +869,7 @@ public class LecturaArchivo {
                 examen.setNombre(atributo);
                 break;
             case "ORDEN":
-                
+
                 if (atributo.equalsIgnoreCase("true")) {
                     examen.setOrden(true);
                 } else if (atributo.equalsIgnoreCase("false")) {
@@ -842,54 +893,110 @@ public class LecturaArchivo {
 
         }
     }
-/*
-    public void crearInforme(Informe informe, String tag, String value) {
+        /**
+     * Metodo que recibe la etiqueta y el atributo y lo almacena dentro del
+     * objeto consulta
+     *
+     * @param consulta = objeto
+     * @param tag = etiqueta del Archivo XML
+     * @param atributo = valor que llenara al objeto
+     */
+        public void crearConsulta(Consulta consulta ,String tag, String atributo) {
 
         switch (tag.toUpperCase()) {
-            case "CODIGO":
+            case "TIPO":
+                consulta.setTipo(atributo);
+                
+                break;
+            case "COSTO":
+                consulta.setCosto(Double.parseDouble(atributo));
+                break;
+            default:
+                System.out.println("Valor no permitido");
+        }
+    }
+    
+    public void crearInforme(Informe informe, String tag, String atributo) {
 
-                informe.setIdInforme(value);
+        switch (tag.toUpperCase()) {
+           case "CODIGO":
+                informe.setCodigoInforme(Integer.parseInt(atributo));
+                
                 break;
             case "PACIENTE":
-                //CONSULTA,VERIFICA QUE EL PACIENTE EXISTA DENTRO DE LA DB
-
-                if (manager.getPacientesDAO().obtener(value) == null) {
-                    System.out.println("Mostrar error el paciente no existe");
-                } else {
-                    informe.setPacientes_codigo(value);
-                }
-
+                informe.setCodigoPaciente(atributo);
                 break;
+                
             case "MEDICO":
-
-                if (manager.getMedicoDAO().obtener(Integer.parseInt(value)) == null) {
-                    System.out.println("Mostrar error el paciente no existe");
-                } else {
-                    informe.setMedico_colegiado(Integer.parseInt(value));
-                }
-
+                informe.setCodigoMedico(atributo);
                 break;
+                
             case "INFORME":
-
-                informe.setDescripcion(value);
+                informe.setDescripcion(atributo);
                 break;
-
+                
             case "FECHA":
-                informe.setFechaHora(java.sql.Date.valueOf(value));
-
+                informe.setFecha(atributo);
                 break;
+                
             case "HORA":
-
-                informe.setHora(java.sql.Time.valueOf(value + ":00"));
-
+                informe.setHora(atributo);
                 break;
-
+                
+          
             default:
+                System.out.println("Valor no permitido");
 
         }
 
     }
+    
+        public void crearResultado(Resultado resultado, String tag, String atributo) {
 
+        switch (tag.toUpperCase()) {
+           case "CODIGO":
+                resultado.setCodigo(Integer.parseInt(atributo));
+                
+                break;
+            case "PACIENTE":
+                resultado.setCodigoPaciente(atributo);
+                break;
+                
+             case "EXAMEN":
+                resultado.setCodigoExamen(Integer.parseInt(atributo));
+                break;
+                
+            case "MEDICO":
+                resultado.setCodigoMedico(atributo);
+                break;
+            case "LABORATORISTA":
+                resultado.setCodigoLaboratorista(atributo);
+                break;
+                
+            case "ORDEN":
+                resultado.setOrden(atributo);
+                break;
+            
+                 case "INFORME":
+                resultado.setInformeExamen(atributo);
+                break;
+             
+            case "FECHA":
+                resultado.setFecha(atributo);
+                break;
+                
+            case "HORA":
+                resultado.setHora(atributo);
+                break;
+                
+          
+            default:
+                System.out.println("Valor no permitido");
+
+        }
+
+    }
+/*
     public void crearResultado(Resultado informe, String tag, String value) {
 
         switch (tag.toUpperCase()) {
@@ -963,20 +1070,7 @@ public class LecturaArchivo {
 
     }
 
-    public void crearConsulta(Consulta consulta ,String tag, String atributo) {
 
-        switch (tag.toUpperCase()) {
-            case "TIPO":
-                consulta.setTipo(atributo);
-                
-                break;
-            case "COSTO":
-                consulta.setCosto(Double.parseDouble(atributo));
-                break;
-            default:
-                System.out.println("Valor no permitido");
-        }
-    }
-*/
-    
+     */
+
 }

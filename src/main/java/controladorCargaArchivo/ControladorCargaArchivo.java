@@ -84,7 +84,19 @@ public class ControladorCargaArchivo extends HttpServlet {
              String nombreArchivo = archivo.getSubmittedFileName();
              LecturaArchivo lectura = new LecturaArchivo();
              lectura.dividirEtiquetas(nombreArchivo);
-             
+             AccesoAAdministrador admin = new AccesoAAdministrador();
+             if(admin.verificarEstadoDB())
+             {
+                    request.setAttribute("Exitoso", true);
+     
+             }else
+             {
+                request.setAttribute("Exitoso", false);
+     
+             }
+
+        RequestDispatcher despachar = request.getRequestDispatcher("CargaArchivo.jsp");
+        despachar.forward(request, response);
         
     }
 

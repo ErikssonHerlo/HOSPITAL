@@ -21,7 +21,8 @@ public class Usuario {
     
     /**
      * Clase Padre o super Clase Uso de Herencia en las Clases Paciente, Medico,
-     * Laboratorista y Administrador Parametros Generales:
+     * Laboratorista y Administrador 
+     * Parametros Generales:
      * @param codigo
      * @param nombre
      * @param DPI

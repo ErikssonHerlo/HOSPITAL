@@ -15,10 +15,10 @@ public class Laboratorista extends Usuario {
     private String nombreExamen;
     private String fechaInicio;
     private boolean estado;
+    private int codigoExamen;
 
     /**
      * Clase Hija de la Clase Usuario, comparte los atributos:
-     *
      * @param codigo
      * @param nombre
      * @param DPI
@@ -32,12 +32,13 @@ public class Laboratorista extends Usuario {
      * @param fechaInicio
      * @param estado
      */
-    public Laboratorista(String codigo, String nombre, String DPI, String telefono, String correo, String password, int tipoUsuario, String registro, String nombreExamen, String fechaInicio, boolean estado) {
+    public Laboratorista(String codigo, String nombre, String DPI, String telefono, String correo, String password, int tipoUsuario, String registro, String nombreExamen, String fechaInicio, boolean estado, int codigoExamen) {
         super(codigo, nombre, DPI, telefono, correo, password, tipoUsuario);
         this.registro = registro;
         this.nombreExamen = nombreExamen;
         this.fechaInicio = fechaInicio;
         this.estado = estado;
+        this.codigoExamen = codigoExamen;
     }
 
     public String getRegistro() {
@@ -56,6 +57,10 @@ public class Laboratorista extends Usuario {
         return estado;
     }
 
+    public int getCodigoExamen() {
+        return codigoExamen;
+    }
+
     public void setRegistro(String registro) {
         this.registro = registro;
     }
@@ -72,4 +77,9 @@ public class Laboratorista extends Usuario {
         this.estado = estado;
     }
 
+    public void setCodigoExamen(int codigoExamen) {
+        this.codigoExamen = codigoExamen;
+    }
+
+  
 }

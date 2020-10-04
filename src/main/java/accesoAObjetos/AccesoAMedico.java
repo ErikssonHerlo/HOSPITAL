@@ -56,7 +56,7 @@ public class AccesoAMedico {
             PreparedStatement enviarDividido3 = Conexion.conexion.prepareStatement(queryDividido3);
             //ERROR DEBIDO A QUE NECESITO RECORRER UN ARRAYLIST Y NO SE COMO
             
-            for(int i=0; i<= especialidad.getTitulo().size();i++){
+            for(int i=0; i< especialidad.getTitulo().size();i++){
                 enviarDividido3.setString(1, especialidad.getTitulo().get(i).toString());
                 enviarDividido3.setBoolean(2, especialidad.isEstado());
                 enviarDividido3.setString(3, medico.getCodigo()); //Envio del Codigo del Medico, al cual se le asigno dicha especialidad

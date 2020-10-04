@@ -5,6 +5,7 @@
 /home/erikssonherlo/NetBeansProjects/HOSPITAL/src/main/java/objetos/Administrador.java
 /home/erikssonherlo/NetBeansProjects/HOSPITAL/src/main/java/backend/InicioUsuario.java
 /home/erikssonherlo/NetBeansProjects/HOSPITAL/src/main/java/objetos/Consulta.java
+/home/erikssonherlo/NetBeansProjects/HOSPITAL/src/main/java/controladorInicioVistas/InicioVistas.java
 /home/erikssonherlo/NetBeansProjects/HOSPITAL/src/main/java/controladorCargaArchivo/ControladorCargaArchivo.java
 /home/erikssonherlo/NetBeansProjects/HOSPITAL/src/main/java/accesoAObjetos/AccesoACitaMedico.java
 /home/erikssonherlo/NetBeansProjects/HOSPITAL/src/main/java/objetos/Usuario.java

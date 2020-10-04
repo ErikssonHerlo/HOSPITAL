@@ -8,6 +8,7 @@ package accesoAObjetos;
 import conexionMySQL.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import objetos.Administrador;
 
@@ -51,4 +52,29 @@ public class AccesoAAdministrador {
        
 
     }
+        public boolean verificarEstadoDB(){
+        
+        Administrador admin = null;
+ 
+        ResultSet rs = Conexion.getTabla("SELECT u.Codigo, u.Nombre, u.DPI, u.Telefono, u.Correo, u.Password, u.Tipo_Usuario FROM Administrador a INNER JOIN Usuario u ON a.Usuario_Codigo = u.Codigo");
+        try {
+            while (rs.next()) {
+                admin = new Administrador(rs.getString("Codigo"), rs.getString("Nombre"),rs.getString("DPI"), rs.getString("Telefono"), rs.getString("Correo"), rs.getString("Password"), rs.getInt("Tipo_Usuario"));
+                
+            }
+
+        } catch (Exception e) {
+
+        }
+           if(admin == null)
+           {
+               return false;
+           } else
+           {
+           return true;
+           }
+    
+    }
+    
+
 }

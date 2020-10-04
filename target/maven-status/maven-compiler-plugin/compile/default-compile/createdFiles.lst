@@ -23,5 +23,6 @@ objetos/Paciente.class
 controladorCargaArchivo/ControladorCargaArchivo.class
 objetos/CitaLaboratorio.class
 conexionMySQL/Conexion.class
+controladorInicioVistas/InicioVistas.class
 objetos/Laboratorista.class
 accesoAObjetos/AccesoACitaLaboratorio.class
