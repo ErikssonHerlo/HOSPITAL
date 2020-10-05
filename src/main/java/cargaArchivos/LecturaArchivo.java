@@ -6,6 +6,7 @@
 package cargaArchivos;
 
 import accesoAObjetos.AccesoAAdministrador;
+import accesoAObjetos.AccesoACitaMedico;
 import accesoAObjetos.AccesoAConsulta;
 import accesoAObjetos.AccesoAExamen;
 import accesoAObjetos.AccesoAInforme;
@@ -21,6 +22,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import objetos.Administrador;
+import objetos.CitaMedico;
 import objetos.Consulta;
 import objetos.Especialidad;
 import objetos.Examen;
@@ -73,7 +75,7 @@ public class LecturaArchivo {
             NodeList listadoConsulta = documento.getElementsByTagName("consulta");
             NodeList listadoInforme = documento.getElementsByTagName("reporte");
             NodeList listadoResultado = documento.getElementsByTagName("resultado");
-            NodeList listadoCita = documento.getElementsByTagName("cita");
+            NodeList listadoCitaMedica = documento.getElementsByTagName("cita");
 
             etiquetaExamenDB(listadoExamen);
             etiquetaAdminDB(listaAdmins);
@@ -83,7 +85,7 @@ public class LecturaArchivo {
             etiquetaConsultaDB(listadoConsulta);
             etiquetaInformeDB(listadoInforme);
             etiquetaResultadoDB(listadoResultado);
-            // tagCita(listadoCita);
+            etiquetaCitaMedicaDB(listadoCitaMedica);
 
         } catch (ParserConfigurationException | SAXException | IOException ex) {
             System.out.println(ex.getMessage());
@@ -345,7 +347,7 @@ public class LecturaArchivo {
 
         for (int i = 0; i < listadoExamen.getLength(); i++) {
 
-            examen = new Examen(0, "", true, "", 0.00, "", true);
+            examen = new Examen(0, "", false, "", 0.00, "", true);
             // Cojo el nodo actual
             Node nodo = listadoExamen.item(i);
             // Compruebo si el nodo es un elemento
@@ -450,6 +452,42 @@ public class LecturaArchivo {
         }
     }
 
+    public void etiquetaCitaMedicaDB(NodeList listadoCitaMedica) {
+        // Recorro las etiquetas
+        System.out.println(" <========>Cita Medica");
+        CitaMedico citaMedico;
+        for (int i = 0; i < listadoCitaMedica.getLength(); i++) {
+            citaMedico = new CitaMedico(1, "", "", "", "", "", true);
+                    // Cojo el nodo actual
+            Node nodo = listadoCitaMedica.item(i);
+            // Compruebo si el nodo es un elemento
+            if (nodo.getNodeType() == Node.ELEMENT_NODE) {
+                // Lo transformo a Element
+                Element e = (Element) nodo;
+                // Obtengo sus hijos
+                NodeList hijos = e.getChildNodes();
+                // Recorro sus hijos
+                for (int j = 0; j < hijos.getLength(); j++) {
+                    // Obtengo al hijo actual
+                    Node hijo = hijos.item(j);
+                    // Compruebo si es un nodo
+                    if (hijo.getNodeType() == Node.ELEMENT_NODE) {
+                        // Muestro el contenido
+
+                        System.out.println("Propiedad: " + hijo.getNodeName()
+                                + ", Valor: " + hijo.getTextContent());
+                        crearCitaMedico(citaMedico, hijo.getNodeName(), hijo.getTextContent());
+                    }
+
+                }
+                AccesoACitaMedico nuevaCitaMedica = new AccesoACitaMedico();
+                nuevaCitaMedica.insertarCitaMedicoCA(citaMedico);
+                        
+                System.out.println("");
+            }
+
+        }
+    }
     /*
     public void tagCita(NodeList listadoDeCitas) {
         // Recorro las etiquetas
@@ -996,6 +1034,40 @@ public class LecturaArchivo {
         }
 
     }
+         public void crearCitaMedico(CitaMedico citaMedico, String tag, String atributo) {
+
+        switch (tag.toUpperCase()) {
+           case "CODIGO":
+                citaMedico.setCodigo(Integer.parseInt(atributo));
+                
+                break;
+            case "PACIENTE":
+                citaMedico.setCodigoPaciente(atributo);
+                break;
+                
+            case "MEDICO":
+                citaMedico.setCodigoMedico(atributo);
+                break;
+                
+             case "ESPECIALIDAD":
+                citaMedico.setTipoConsulta(atributo);
+                break;   
+            case "FECHA":
+                citaMedico.setFecha(atributo);
+                break;
+                
+            case "HORA":
+                citaMedico.setHora(atributo);
+                break;
+                
+          
+            default:
+                System.out.println("Valor no permitido");
+
+        }
+
+    }
+
 /*
     public void crearResultado(Resultado informe, String tag, String value) {
 

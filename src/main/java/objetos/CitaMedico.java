@@ -14,12 +14,12 @@ public class CitaMedico {
     private int codigo;
     private String codigoPaciente;
     private String codigoMedico;
-    private String especialidad;
+    private String tipoConsulta;
     private String fecha;
     private String hora;
     private boolean estado;
 
-    /**
+        /**
      * Clase CitaMedico, que contendra todos los datos de una Cita creada por un
      * Administrador, un Medico o un Paciente desde la Vista o desde la carga de
      * Archivos
@@ -27,16 +27,16 @@ public class CitaMedico {
      * @param codigo
      * @param codigoPaciente
      * @param codigoMedico
-     * @param especialidad
+     * @param tipoConsulta
      * @param fecha
      * @param hora
      * @param estado
      */
-    public CitaMedico(int codigo, String codigoPaciente, String codigoMedico, String especialidad, String fecha, String hora, boolean estado) {
+    public CitaMedico(int codigo, String codigoPaciente, String codigoMedico, String tipoConsulta, String fecha, String hora, boolean estado) {
         this.codigo = codigo;
         this.codigoPaciente = codigoPaciente;
         this.codigoMedico = codigoMedico;
-        this.especialidad = especialidad;
+        this.tipoConsulta = tipoConsulta;
         this.fecha = fecha;
         this.hora = hora;
         this.estado = estado;
@@ -54,8 +54,8 @@ public class CitaMedico {
         return codigoMedico;
     }
 
-    public String getEspecialidad() {
-        return especialidad;
+    public String getTipoConsulta() {
+        return tipoConsulta;
     }
 
     public String getFecha() {
@@ -82,8 +82,8 @@ public class CitaMedico {
         this.codigoMedico = codigoMedico;
     }
 
-    public void setEspecialidad(String especialidad) {
-        this.especialidad = especialidad;
+    public void setTipoConsulta(String tipoConsulta) {
+        this.tipoConsulta = tipoConsulta;
     }
 
     public void setFecha(String fecha) {
@@ -97,5 +97,8 @@ public class CitaMedico {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+
+   
 
 }

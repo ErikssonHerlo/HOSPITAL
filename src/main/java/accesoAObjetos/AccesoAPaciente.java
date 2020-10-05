@@ -16,7 +16,7 @@ import objetos.Paciente;
  */
 public class AccesoAPaciente {
 
-    public void insertarNuevoPaciente(Paciente paciente) {
+    public boolean insertarNuevoPaciente(Paciente paciente) {
         String queryDividido1 = "INSERT INTO Usuario(Codigo, Nombre, DPI, Telefono, Correo, Password, Tipo_Usuario) "
                 + "VALUES(?,?,?,?,?,?,?)";
 
@@ -46,9 +46,11 @@ public class AccesoAPaciente {
             enviarDividido2.setString(5, paciente.getTipoSangre());
             enviarDividido2.setBoolean(6, paciente.isEstado());
             enviarDividido2.executeUpdate();
+            return true;
 
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
+            return false;
         }
 
     }

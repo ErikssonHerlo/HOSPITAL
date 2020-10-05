@@ -18,7 +18,7 @@
            <% } else {%>
              <% if ((boolean)request.getAttribute("Estado")) {%>
            
-            <% response.sendRedirect("InicioAdmin.jsp"); %>
+            <% response.sendRedirect("Login2.jsp"); %>
         <% } else {%>
             <% response.sendRedirect("CargaArchivo.jsp"); %>
         <% }%>
