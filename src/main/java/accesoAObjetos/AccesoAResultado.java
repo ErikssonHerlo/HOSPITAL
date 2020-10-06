@@ -7,7 +7,12 @@ package accesoAObjetos;
 
 import conexionMySQL.Conexion;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import objetos.Administrador;
+import objetos.ReportePaciente;
 import objetos.Resultado;
 
 
@@ -50,5 +55,38 @@ public class AccesoAResultado {
             return false;
         }
 
+    }
+    
+     public List<ReportePaciente> reporte1(String codigoUsuario){
+        
+        List<ReportePaciente> reporte = new ArrayList<>();
+        reporte.clear();
+ 
+        try {
+            String query = "SELECT r.Codigo_Resultado, u.Nombre, r.Laboratorista_Usuario_Codigo, e.Nombre AS Nombre_Examen, r.Informe_Examen, r.Fecha, r.Hora FROM Usuario u INNER JOIN Resultado r ON u.Codigo = r.Paciente_Usuario_Codigo INNER JOIN Examen e ON e.Codigo = r.Examen_Codigo WHERE r.Paciente_Usuario_Codigo = ? LIMIT 5";
+        PreparedStatement enviar = Conexion.conexion.prepareStatement(query);
+        ResultSet rs = null;
+        
+        
+        enviar.setString(1, codigoUsuario);
+        
+        rs=enviar.executeQuery();   
+        
+            while (rs.next()) {
+                reporte.add(new ReportePaciente(rs.getInt("Codigo_Resultado"),
+                        rs.getString("Nombre"),
+                        rs.getString("Laboratorista_Usuario_Codigo"), 
+                        rs.getString("Nombre_Examen"), 
+                         rs.getString("Informe_Examen"), 
+                         rs.getString("Fecha"), 
+                         rs.getString("Hora"))); 
+                
+            }
+          
+        } catch (Exception e) {
+
+        }
+          
+    return reporte;
     }
 }

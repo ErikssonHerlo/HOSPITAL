@@ -56,7 +56,7 @@ public class AccesoAAdministrador {
         
         Administrador admin = null;
  
-        ResultSet rs = Conexion.getTabla("SELECT u.Codigo, u.Nombre, u.DPI, u.Telefono, u.Correo, u.Password, u.Tipo_Usuario FROM Administrador a INNER JOIN Usuario u ON a.Usuario_Codigo = u.Codigo");
+        ResultSet rs = Conexion.getTabla("SELECT u.Codigo, u.Nombre, u.DPI, u.Telefono, u.Correo, u.Password, u.Tipo_Usuario FROM Usuario u INNER JOIN Administrador a ON a.Usuario_Codigo = u.Codigo");
         try {
             while (rs.next()) {
                 admin = new Administrador(rs.getString("Codigo"), rs.getString("Nombre"),rs.getString("DPI"), rs.getString("Telefono"), rs.getString("Correo"), rs.getString("Password"), rs.getInt("Tipo_Usuario"));
@@ -75,6 +75,94 @@ public class AccesoAAdministrador {
            }
     
     }
-    
+        /**
+         * Metodo de Validacion, recibe los parametros desde el formulario, verifica si existe el usuario
+         * y si este existe, verifica que su contraseña sea correcta
+         * @param codigoAdmin
+         * @param password
+         * @return
+         * @throws SQLException 
+         */
+        public Administrador validacionLogin(String codigoAdmin, String password) throws SQLException {
+        Administrador admin = obtenerAdministrador(codigoAdmin);
+        if (admin != null && admin.getPassword().equals(password)) {
+            return admin;
+        }
+        return null;
+    }
+        /**
+         * Obtenemos el Administrador con una busqueda entorno a su codigo
+         * @param codigoAdministrador
+         * @return 
+         */
+      public Administrador obtenerAdministrador(String codigoAdministrador){
+        
+        Administrador admin = null;
+ 
+        try {
+        String query ="SELECT u.Codigo, u.Nombre, u.DPI, u.Telefono, u.Correo, u.Password, u.Tipo_Usuario FROM Usuario u INNER JOIN Administrador a ON a.Usuario_Codigo = u.Codigo WHERE a.Usuario_Codigo = ?";
+        PreparedStatement enviar = Conexion.conexion.prepareStatement(query);
+        ResultSet rs = null;
+        
+        
+        enviar.setString(1, codigoAdministrador);
+        
+        rs=enviar.executeQuery();   
+        
+            while (rs.next()) {
+                admin = new Administrador(rs.getString("Codigo"), rs.getString("Nombre"),rs.getString("DPI"), rs.getString("Telefono"), rs.getString("Correo"), rs.getString("Password"), rs.getInt("Tipo_Usuario"));
+                
+            }
+          
+        } catch (Exception e) {
+
+        }
+          
+    return admin;
+    }
 
 }
+/*
+        PreparedStatement preSt = connection.prepareStatement(BUSCAR_USUARIO);
+        preSt.setInt(1, idUsuario);
+        ResultSet result = preSt.executeQuery();
+
+        Usuario usuario = null;
+
+        while (result.next()) {
+            usuario = new Usuario(
+                    result.getInt(Usuario.USUARIO_ID_DB_NAME),
+                    result.getString(Usuario.NOMBRE_DB_NAME),
+                    result.getString(Usuario.PROFESION_DB_NAME),
+                    result.getString(Usuario.PASSWORD_DB_NAME)
+            );
+        }
+        return usuario;
+*/
+/* ASI HICE CONSULTAS CON PARAMETROS
+v    private void mostrarTablaBusqueda(String fechaInicioConsulta, String fechaFinalConsulta) throws SQLException {
+        //NITDelCliente = NITCliente;
+        DefaultTableModel model = new DefaultTableModel();
+        try {
+        String query ="SELECT SUM(Cantidad_Venta),Codigo_Producto,GROUP_CONCAT(DISTINCT v.Fecha) FROM DETALLE_VENTAS d INNER JOIN VENTAS v ON d.Id_Ventas=v.Id_Ventas WHERE v.Fecha BETWEEN ? AND ? GROUP BY Codigo_Producto ORDER BY SUM(Cantidad_Venta) DESC LIMIT 10";
+        PreparedStatement enviar = Conexion.conexion.prepareStatement(query);
+        ResultSet rs = null;
+        
+        
+        enviar.setString(1, fechaInicioConsulta);
+        enviar.setString(2, fechaFinalConsulta);
+        
+        rs=enviar.executeQuery();
+        model.setColumnIdentifiers(new Object[]{"Cantidad de Productos Vendidos", "Codigo Producto", "Fecha en la que se Vendieron más Productos"});
+        
+     
+        
+            while (rs.next()) {               
+              model.addRow(new Object[]{rs.getInt("SUM(Cantidad_Venta)"), rs.getString("Codigo_Producto"), rs.getString("GROUP_CONCAT(DISTINCT v.Fecha)")});
+        }
+            tablePedidos.setModel(model);
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+    }
+*/

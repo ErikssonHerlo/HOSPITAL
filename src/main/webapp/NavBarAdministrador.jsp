@@ -61,7 +61,7 @@
                                     <li><a href="">Nuevo Paciente</a></li>
                                     <li><a href="#">Nuevo Medico</a></li>
                                     <li><a href="#">Nuevo Laboratorista</a></li>
-                                    <li><a href="#">Nuevo Examen</a></li>
+                                    <li><a href="NuevoExamen.jsp">Nuevo Examen</a></li>
                                     <li><a href="#">Nueva Consulta</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li class="dropdown-header">Citas</li>
@@ -100,7 +100,7 @@
                                     <li><a href="#">Examenes con mayor demanda por Medicos</a></li>
                                 </ul>
                             </li>
-                            <li class="dropdown"><a href="#">Cerrar Sesion</a></li>
+                            <li class="dropdown"><a href="CerrarSesion">Cerrar Sesion</a></li>
                         </ul>
                     </div>
                 </div>

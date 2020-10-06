@@ -5,12 +5,15 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@page session="true" %>
 <!DOCTYPE html>
 <html>
     <%@ include file = "HeaderGeneral.html" %>
     <body>
-        <%@ include file = "NavBarAdministrador.html" %>
-        <% if (request.getAttribute("Exitoso") == null) {%>
+        <%@ include file = "NavBarAdministrador.jsp" %>
+        <% if((String)request.getSession().getAttribute("codigoUsuario") != null && (int)request.getSession().getAttribute("tipoUsuario") == 1) {%>
+            <% if (request.getAttribute("Exitoso") == null) {%>
         <div class="container" style="padding-top: 70px" >
 
             <h1 class="align-content-lg-center">Nuevo Administrador</h1>
@@ -80,6 +83,16 @@
             <% }%>
         </div>
         <% }%>
+        <% } else if((String)request.getSession().getAttribute("codigoUsuario") != null && (int)request.getSession().getAttribute("tipoUsuario") == 2) { %>
+        <% response.sendRedirect(request.getContextPath()+"/InicioLaboratorista.jsp"); %>
+        <% } else if((String)request.getSession().getAttribute("codigoUsuario") != null && (int)request.getSession().getAttribute("tipoUsuario") == 3) { %>
+        <% response.sendRedirect(request.getContextPath()+"/InicioPaciente.jsp"); %>
+        <% } else if((String)request.getSession().getAttribute("codigoUsuario") != null && (int)request.getSession().getAttribute("tipoUsuario") == 4) { %>
+        <% response.sendRedirect(request.getContextPath()+"/InicioMedico.jsp"); %>
+        <% } else { %>
+    <% response.sendRedirect(request.getContextPath()+"/Login.jsp");
+         %>
+    <% }%>
         <%@ include file = "FooterGeneral.html" %>
     </body>
 </html>

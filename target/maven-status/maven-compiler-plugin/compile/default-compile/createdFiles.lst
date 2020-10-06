@@ -24,10 +24,14 @@ accesoAObjetos/AccesoACitaMedico.class
 objetos/Administrador.class
 objetos/Paciente.class
 controladorCargaArchivo/ControladorCargaArchivo.class
+controladorReportesPaciente/Reporte1Paciente.class
 objetos/Resultado.class
 objetos/CitaLaboratorio.class
 conexionMySQL/Conexion.class
+accesoAObjetos/AccesoAUsuario.class
+controladorSesion/cerrarSesion.class
 controladorInicioVistas/InicioVistas.class
 objetos/Laboratorista.class
 controladorSesion/InicioSesion.class
+controladorAdministrador/NuevoExamen.class
 accesoAObjetos/AccesoACitaLaboratorio.class

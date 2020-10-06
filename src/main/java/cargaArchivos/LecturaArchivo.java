@@ -53,9 +53,9 @@ public class LecturaArchivo {
      *
      * @param nombreArchivo
      */
-    public void dividirEtiquetas(String nombreArchivo) {
+    public void dividirEtiquetas(String pathArchivo) {
 
-        String path = "/home/erikssonherlo/NetBeansProjects/HOSPITAL/src/main/webapp/ArchivosDB/" + nombreArchivo;
+       // String path = "/home/erikssonherlo/NetBeansProjects/HOSPITAL/src/main/webapp/ArchivosDB/" + nombreArchivo;
         try {
 
             // Creo una instancia de DocumentBuilderFactory
@@ -64,9 +64,9 @@ public class LecturaArchivo {
             DocumentBuilder builder = factory.newDocumentBuilder();
 
             // Obtengo el documento, a partir del XML
-            Document documento = builder.parse(new File(path));
+            Document documento = builder.parse(new File(pathArchivo));
 
-            // Cojo todas las etiquetas admin del documento
+            // Cojo todas las etiquetas PADRE del documento
             NodeList listadoExamen = documento.getElementsByTagName("examen");
             NodeList listaAdmins = documento.getElementsByTagName("admin");
             NodeList listaPaciente = documento.getElementsByTagName("paciente");

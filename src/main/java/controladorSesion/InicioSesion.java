@@ -5,6 +5,8 @@
  */
 package controladorSesion;
 
+import accesoAObjetos.AccesoAAdministrador;
+import accesoAObjetos.AccesoAUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -13,6 +15,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import objetos.Administrador;
+import objetos.Laboratorista;
+import objetos.Medico;
+import objetos.Paciente;
+import sun.jvm.hotspot.utilities.soql.SOQLException;
 
 /**
  *
@@ -73,10 +80,66 @@ public class InicioSesion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("Exitoso", true);
+        try {
+            String codigoUsuario = request.getParameter("usuarioCodigo");
+        String passwordUsuario = request.getParameter("usuarioPassword");
+        AccesoAUsuario acceso = new AccesoAUsuario();
         
-        RequestDispatcher despachar = request.getRequestDispatcher("Login2.jsp");
+        Administrador adminSesion = acceso.loginAdmin(codigoUsuario, passwordUsuario);
+        Laboratorista labSesion = acceso.loginLaboratorista(codigoUsuario, passwordUsuario);
+        Paciente pacienteSesion = acceso.loginPaciente(codigoUsuario, passwordUsuario);
+        Medico medicoSesion = acceso.loginMedico(codigoUsuario, passwordUsuario);
+            System.out.println("Recibi los parametros");
+        if(adminSesion != null)
+        {
+            System.out.println("Ingresamos al Usuario: "+adminSesion.getNombre());
+            request.getSession().setAttribute("codigoUsuario", adminSesion.getCodigo());
+            request.getSession().setAttribute("nombreUsuario", adminSesion.getNombre());
+            request.getSession().setAttribute("tipoUsuario", adminSesion.getTipoUsuario());
+            request.getSession().setAttribute("objetoUsuario", adminSesion);
+            response.sendRedirect(request.getContextPath()+"/InicioAdmin.jsp");
+                    
+        } else if(labSesion != null)
+        {
+            System.out.println("Ingresamos al Usuario: "+labSesion.getNombre());
+            request.getSession().setAttribute("codigoUsuario", labSesion.getCodigo());
+            request.getSession().setAttribute("nombreUsuario", labSesion.getNombre());
+            request.getSession().setAttribute("tipoUsuario", labSesion.getTipoUsuario());
+            request.getSession().setAttribute("objetoUsuario", labSesion);
+            response.sendRedirect(request.getContextPath()+"/InicioLaboratorista.jsp");
+                    
+        }  else if(pacienteSesion != null)
+        {
+            System.out.println("Ingresamos al Usuario: "+pacienteSesion.getNombre());
+            request.getSession().setAttribute("codigoUsuario", pacienteSesion.getCodigo());
+            request.getSession().setAttribute("nombreUsuario", pacienteSesion.getNombre());
+            request.getSession().setAttribute("tipoUsuario", pacienteSesion.getTipoUsuario());
+            request.getSession().setAttribute("objetoUsuario", pacienteSesion);
+            response.sendRedirect(request.getContextPath()+"/InicioPaciente.jsp");
+                    
+        }  
+         else if(medicoSesion != null)
+        {
+            System.out.println("Ingresamos al Usuario: "+medicoSesion.getNombre());
+            request.getSession().setAttribute("codigoUsuario", medicoSesion.getCodigo());
+            request.getSession().setAttribute("nombreUsuario", medicoSesion.getNombre());
+            request.getSession().setAttribute("tipoUsuario", medicoSesion.getTipoUsuario());
+            request.getSession().setAttribute("objetoUsuario", medicoSesion);
+            response.sendRedirect(request.getContextPath()+"/InicioMedico.jsp");
+                    
+        }  else {
+         request.setAttribute("Exitoso", false);
+        
+        RequestDispatcher despachar = request.getRequestDispatcher("Login.jsp");
         despachar.forward(request, response);
+        
+        }
+       
+        } catch (Exception e) {
+            System.out.println("Login Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
     }
 
     /**

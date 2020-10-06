@@ -23,6 +23,14 @@
                         <input class="form-control" type="file"  name="archivoDB" id="archivoDB" placeholder="Elija el Archivo" accept="application/xml" required>
                     </div>
                 </div>
+                <div class="row">
+                        <div class="form-group col-md-5">
+                            <label>Seleccione los Archivos Complementarios del Archivo XML</label>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input class="form-control" type="file"  name="archivosComplementariosDB" id="archivosComplementariosDB" placeholder="Elija los archivos" accept=".pdf,image/*" multiple required>
+                        </div>
+                    </div>
 
 
                 <br>
@@ -49,7 +57,7 @@
                 <br>
                 <CENTER>
                
-                    <a href="InicioAdmin.jsp" class="btn btn-primary">Iniciar Sesion</a>
+                    <a href="Login.jsp" class="btn btn-primary">Iniciar Sesion</a>
               
 
                 </CENTER>

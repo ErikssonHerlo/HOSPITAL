@@ -9,7 +9,12 @@ import accesoAObjetos.AccesoAAdministrador;
 import cargaArchivos.LecturaArchivo;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -80,10 +85,24 @@ public class ControladorCargaArchivo extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+            //Guardar el Archivo XML en la carpeta ArchivosDB
              Part archivo = request.getPart("archivoDB");
-             String nombreArchivo = archivo.getSubmittedFileName();
+             String nombreArchivo = Paths.get(archivo.getSubmittedFileName()).getFileName().toString();
+             System.out.println("Path del Archivo: "+nombreArchivo);
+             String pathAbsolutoArchivo = "/home/erikssonherlo/NetBeansProjects/HOSPITAL/src/main/webapp/ArchivosDB/"+nombreArchivo;
+             //nombreArchivo = data.xml
+             guardarArchivos(archivo, nombreArchivo);
+             
+             //Guardar todos los Archivos que estan incluidos dentro de la carga del Archivo en la carpeta ArchivosDB
+                 
+             ArrayList<Part> filePartArchivosDB = (ArrayList<Part>) request.getParts();       
+             for (Part part : filePartArchivosDB) {
+             String rutaArchivo = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+            guardarArchivos(part, rutaArchivo);
+            }
+             //
              LecturaArchivo lectura = new LecturaArchivo();
-             lectura.dividirEtiquetas(nombreArchivo);
+             lectura.dividirEtiquetas(pathAbsolutoArchivo);
              AccesoAAdministrador admin = new AccesoAAdministrador();
              if(admin.verificarEstadoDB())
              {
@@ -100,6 +119,17 @@ public class ControladorCargaArchivo extends HttpServlet {
         
     }
 
+    private void guardarArchivos(Part filePart,String rutaArchivo){
+        File rutaDestino = new File("/home/erikssonherlo/NetBeansProjects/HOSPITAL/src/main/webapp/ArchivosDB");
+        File file = new File(rutaDestino,rutaArchivo);
+
+        try(InputStream inputS = filePart.getInputStream()) {
+            Files.copy(inputS, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+        }
+    }
     /**
      * Returns a short description of the servlet.
      *
