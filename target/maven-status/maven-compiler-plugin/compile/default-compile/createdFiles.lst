@@ -1,3 +1,5 @@
+objetos/ReportePaciente.class
+controladorReportesPaciente/Reporte3Paciente.class
 objetos/Usuario.class
 accesoAObjetos/AccesoAAdministrador.class
 backend/Auxiliar.class
@@ -24,6 +26,7 @@ accesoAObjetos/AccesoACitaMedico.class
 objetos/Administrador.class
 objetos/Paciente.class
 controladorCargaArchivo/ControladorCargaArchivo.class
+ControladorPaciente/HistorialMedicoPaciente.class
 controladorReportesPaciente/Reporte1Paciente.class
 objetos/Resultado.class
 objetos/CitaLaboratorio.class

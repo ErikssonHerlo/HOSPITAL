@@ -18,13 +18,13 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="">Hospital</a>
+                        <a class="navbar-brand" href="InicioPaciente.jsp">Hospital</a>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li class="dropdown"><a href="#">Historial Medico</a></li>
+                            <li class="dropdown"><a href="Historial_Paciente.jsp">Historial Medico</a></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Agendar <span class="caret"></span></a>
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Agendar <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                
                                    
@@ -38,7 +38,7 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ver Informacion <span class="caret"></span></a>
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ver Informacion <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                
                                    
@@ -54,7 +54,7 @@
                            
 
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                    
                                     <li class="dropdown-header">Laboratorio</li>
@@ -62,12 +62,15 @@
                                     <li><a href="#">Examenes Realizados de un Tipo en Especifico</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li class="dropdown-header">Consultas Medicas</li>
-                                    <li><a href="#">Ultimas Consultas Realizadas</a></li>
+                                    <li><a href="Reporte3_Paciente.jsp">Ultimas Consultas Realizadas</a></li>
                                     <li><a href="#">Consultas Realizadas por un Medico en Especifico</a></li>
                                  
                                 </ul>
                             </li>
                             <li class="dropdown"><a href="CerrarSesion">Cerrar Sesion</a></li>
+                            <li class="dropdown"><a href=""></a>________________</li>
+                            <li class="dropdown"><a  href=""><%=(String)request.getSession().getAttribute("nombreUsuario")%></a></li>
+                            
                         </ul>
                     </div>
                 </div>

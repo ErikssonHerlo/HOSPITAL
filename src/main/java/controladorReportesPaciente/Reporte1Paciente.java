@@ -11,6 +11,8 @@ import accesoAObjetos.AccesoAPaciente;
 import accesoAObjetos.AccesoAResultado;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import objetos.Administrador;
+import objetos.ReportePaciente;
 
 /**
  *
@@ -38,13 +41,18 @@ public class Reporte1Paciente extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int longitud = 0;
+        
                AccesoAResultado acceso = new AccesoAResultado();
         String codigoUsuario = (String)request.getSession().getAttribute("codigoUsuario");
-        if(!acceso.reporte1(codigoUsuario).isEmpty())
-        {
+        if(!acceso.reporte1(codigoUsuario).isEmpty()){
             request.setAttribute("Reporte", acceso.reporte1(codigoUsuario));
-        } 
+        } else {
+              List<ReportePaciente> reporteVacio = new ArrayList<>();
+              reporteVacio.add(new ReportePaciente(0, "El Paciente No Cuenta con Ningun Resultado en Nuestro Laboratorio", "", "", "", "", ""));
+            request.setAttribute("Reporte", reporteVacio);
+           
+     
+        }
         RequestDispatcher despachar = request.getRequestDispatcher("Reporte1_Paciente.jsp");
         despachar.forward(request, response);
         for (Object elementos: acceso.reporte1(codigoUsuario)) {

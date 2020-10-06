@@ -59,7 +59,38 @@
             </c:forEach>
         </table>
             
- 
+     <h1 class="align-content-lg-center">Historial del Laboratorio del Paciente <%=request.getSession().getAttribute("nombreUsuario")
+            %></h1>
+            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table table-bordered  table-hover" >
+                <thead class="thead-dark">
+                <tr>
+                <th>Codigo</th>
+                <th>Paciente</th>
+                <th>Laboratorista</th>
+                <th>Examen</th>
+                <th>Informe del Examen</th>
+                
+                <th>Fecha</th>
+                <th>Hora</th>
+            
+            </tr>
+                </thead>
+            <c:forEach items="${HistorialLaboratorio}" var="resultado"> 
+                <tbody>
+                <tr>
+                    <td>${resultado.getCodigoResultado()}</td>
+                    <td>${resultado.getNombrePaciente()}</td>
+                    <td>${resultado.getNombreLaboratorista()}</td>
+                    <td>${resultado.getNombreExamen()}</td>
+                    <td><a href="ArchivosDB/${resultado.getInformeExamen()}" target="__blank">Informe</a></td>
+                    <td>${resultado.getFecha()}</td>
+                    <td>${resultado.getHora()}</td>
+                </tr>
+                </tbody>
+            </c:forEach>
+        </table>
+            </div>
             
         </div>
         <% }%>

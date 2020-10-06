@@ -35,7 +35,7 @@
                 <tr>
                 <th>Codigo</th>
                 <th>Paciente</th>
-                <th>Codigo del Laboratorista</th>
+                <th>Laboratorista</th>
                 <th>Examen</th>
                 <th>Informe del Examen</th>
                 
@@ -44,12 +44,13 @@
             
             </tr>
                 </thead>
+                
             <c:forEach items="${Reporte}" var="resultado"> 
                 <tbody>
                 <tr>
                     <td>${resultado.getCodigoResultado()}</td>
                     <td>${resultado.getNombrePaciente()}</td>
-                    <td>${resultado.getCodigoLaboratorista()}</td>
+                    <td>${resultado.getNombreLaboratorista()}</td>
                     <td>${resultado.getNombreExamen()}</td>
                     <td><a href="ArchivosDB/${resultado.getInformeExamen()}" target="__blank">Informe</a></td>
                     <td>${resultado.getFecha()}</td>
@@ -58,9 +59,7 @@
                 </tbody>
             </c:forEach>
         </table>
-            
- 
-            
+      
         </div>
         <% }%>
         <% } else if((String)request.getSession().getAttribute("codigoUsuario") != null && (int)request.getSession().getAttribute("tipoUsuario") == 2) { %>

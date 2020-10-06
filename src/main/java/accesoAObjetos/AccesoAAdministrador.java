@@ -23,8 +23,8 @@ public class AccesoAAdministrador {
         String queryDividido1 = "INSERT INTO Usuario(Codigo, Nombre, DPI, Telefono, Correo, Password, Tipo_Usuario) "
                 + "VALUES(?,?,?,?,?,?,?)";
 
-        String queryDividido2 = "INSERT INTO Administrador(Usuario_Codigo) "
-                + "VALUES(?)";
+        String queryDividido2 = "INSERT INTO Administrador(Usuario_Codigo, Nombre) "
+                + "VALUES(?,?)";
 
         try {
 
@@ -43,6 +43,7 @@ public class AccesoAAdministrador {
             //Envia los Datos Complementarios del Administrador a la tabla administrador
             PreparedStatement enviarDividido2 = Conexion.conexion.prepareStatement(queryDividido2);
             enviarDividido2.setString(1, administrador.getCodigo());
+            enviarDividido2.setString(2, administrador.getNombre());
             enviarDividido2.executeUpdate();
             return true;
         } catch (SQLException ex) {

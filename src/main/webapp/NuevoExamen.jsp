@@ -61,7 +61,7 @@
                             <option value="PDF">PDF</option>
                             <option value="imagen">Imagen</option>
 
-                        </select>                    </div>
+                        </select>                      </div>
                 </div>
 
                 <br>

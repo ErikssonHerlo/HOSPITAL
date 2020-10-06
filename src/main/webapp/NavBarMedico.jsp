@@ -18,14 +18,14 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">Hospital</a>
+                        <a class="navbar-brand" href="InicioMedico.jsp">Hospital</a>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
       
 
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Informes <span class="caret"></span></a>
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Informes <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <!-- <li><a href="EjemploArchivos/Guia-1W205777444%20JOSE%20LOPEZ.pdf" target="__blank"/>Nuevo Administrador</li> 
                                     -->
@@ -42,7 +42,7 @@
                                 </ul>
                             </li>
                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Agendar <span class="caret"></span></a>
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Agendar <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <!-- <li><a href="EjemploArchivos/Guia-1W205777444%20JOSE%20LOPEZ.pdf" target="__blank"/>Nuevo Administrador</li> 
                                     -->
@@ -58,7 +58,7 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                    
                                     <li class="dropdown-header">Historial Medico</li>
@@ -74,6 +74,9 @@
                                 </ul>
                             </li>
                             <li class="dropdown"><a href="CerrarSesion">Cerrar Sesion</a></li>
+                            <li class="dropdown"><a href=""></a>___________________________________________</li>
+                            <li class="dropdown"><a href=""><%=(String)request.getSession().getAttribute("nombreUsuario")%></a></li>
+                            
                         </ul>
                     </div>
                 </div>

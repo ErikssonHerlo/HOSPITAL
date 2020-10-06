@@ -20,8 +20,8 @@ public class AccesoAPaciente {
         String queryDividido1 = "INSERT INTO Usuario(Codigo, Nombre, DPI, Telefono, Correo, Password, Tipo_Usuario) "
                 + "VALUES(?,?,?,?,?,?,?)";
 
-        String queryDividido2 = "INSERT INTO Paciente(Usuario_Codigo, Sexo, Nacimiento, Peso, Tipo_Sangre, Estado) "
-                + "VALUES(?,?,?,?,?,?)";
+        String queryDividido2 = "INSERT INTO Paciente(Usuario_Codigo, Nombre, Sexo, Nacimiento, Peso, Tipo_Sangre, Estado) "
+                + "VALUES(?,?,?,?,?,?,?)";
 
         try {
 
@@ -40,11 +40,12 @@ public class AccesoAPaciente {
             //Envia los Datos Complementarios del Paciente a la tabla Paciente
             PreparedStatement enviarDividido2 = Conexion.conexion.prepareStatement(queryDividido2);
             enviarDividido2.setString(1, paciente.getCodigo());
-            enviarDividido2.setString(2, paciente.getSexo());
-            enviarDividido2.setString(3, paciente.getNacimiento());
-            enviarDividido2.setString(4, paciente.getPeso());
-            enviarDividido2.setString(5, paciente.getTipoSangre());
-            enviarDividido2.setBoolean(6, paciente.isEstado());
+             enviarDividido2.setString(2, paciente.getNombre());
+            enviarDividido2.setString(3, paciente.getSexo());
+            enviarDividido2.setString(4, paciente.getNacimiento());
+            enviarDividido2.setString(5, paciente.getPeso());
+            enviarDividido2.setString(6, paciente.getTipoSangre());
+            enviarDividido2.setBoolean(7, paciente.isEstado());
             enviarDividido2.executeUpdate();
             return true;
 

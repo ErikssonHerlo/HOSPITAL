@@ -22,8 +22,8 @@ public class AccesoAMedico {
         String queryDividido1 = "INSERT INTO Usuario(Codigo, Nombre, DPI, Telefono, Correo, Password, Tipo_Usuario) "
                 + "VALUES(?,?,?,?,?,?,?)";
 
-        String queryDividido2 = "INSERT INTO Medico(Usuario_Codigo, Colegiado, Hora_Entrada, Hora_Salida, Fecha_Inicio, Estado) "
-                + "VALUES(?,?,?,?,?,?)";
+        String queryDividido2 = "INSERT INTO Medico(Usuario_Codigo, Nombre, Colegiado, Hora_Entrada, Hora_Salida, Fecha_Inicio, Estado) "
+                + "VALUES(?,?,?,?,?,?,?)";
 
         String queryDividido3 = "INSERT INTO Especialidad(Titulo, Estado, Medico_Usuario_Codigo) "
                 + "VALUES(?,?,?)";
@@ -45,11 +45,12 @@ public class AccesoAMedico {
             //Envia los Datos Complementarios del Medico a la Tabla Medico
             PreparedStatement enviarDividido2 = Conexion.conexion.prepareStatement(queryDividido2);
             enviarDividido2.setString(1, medico.getCodigo());
-            enviarDividido2.setInt(2, medico.getColegiado());
-            enviarDividido2.setString(3, medico.getHoraEntrada());
-            enviarDividido2.setString(4, medico.getHoraSalida());
-            enviarDividido2.setString(5, medico.getFechaInicio());
-            enviarDividido2.setBoolean(6, medico.isEstado());
+            enviarDividido2.setString(2, medico.getNombre());
+            enviarDividido2.setInt(3, medico.getColegiado());
+            enviarDividido2.setString(4, medico.getHoraEntrada());
+            enviarDividido2.setString(5, medico.getHoraSalida());
+            enviarDividido2.setString(6, medico.getFechaInicio());
+            enviarDividido2.setBoolean(7, medico.isEstado());
             enviarDividido2.executeUpdate();
 
             ////Envio de los Datos de la Especialidad perteneciente a un Medico en Especifico en la Tabla Especialidad

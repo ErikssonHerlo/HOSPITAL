@@ -21,8 +21,8 @@ public class AccesoALaboratorista {
         String queryDividido1 = "INSERT INTO Usuario(Codigo, Nombre, DPI, Telefono, Correo, Password, Tipo_Usuario) "
                 + "VALUES(?,?,?,?,?,?,?)";
 
-        String queryDividido2 = "INSERT INTO Laboratorista(Usuario_Codigo, Registro, Nombre_Examen, Fecha_Inicio, Estado, Examen_Codigo) "
-                + "VALUES(?,?,?,?,?, "
+        String queryDividido2 = "INSERT INTO Laboratorista(Usuario_Codigo, Nombre, Registro, Nombre_Examen, Fecha_Inicio, Estado, Examen_Codigo) "
+                + "VALUES(?,?,?,?,?,?, "
                 + "(SELECT Codigo FROM Examen WHERE Nombre = ? LIMIT 1))";
 
         String queryDividido3 = "INSERT INTO Turno(Dia_Turno, Laboratorista_Usuario_Codigo) "
@@ -45,11 +45,12 @@ public class AccesoALaboratorista {
             //Envia los Datos Complementarios del Laboratorista a la Tabla Laboratorista
             PreparedStatement enviarDividido2 = Conexion.conexion.prepareStatement(queryDividido2);
             enviarDividido2.setString(1, laboratorista.getCodigo());
-            enviarDividido2.setString(2, laboratorista.getRegistro());
-            enviarDividido2.setString(3, laboratorista.getNombreExamen());
-            enviarDividido2.setString(4, laboratorista.getFechaInicio());
-            enviarDividido2.setBoolean(5, laboratorista.isEstado());
-            enviarDividido2.setString(6, laboratorista.getNombreExamen());
+             enviarDividido2.setString(2, laboratorista.getNombre());
+            enviarDividido2.setString(3, laboratorista.getRegistro());
+            enviarDividido2.setString(4, laboratorista.getNombreExamen());
+            enviarDividido2.setString(5, laboratorista.getFechaInicio());
+            enviarDividido2.setBoolean(6, laboratorista.isEstado());
+            enviarDividido2.setString(7, laboratorista.getNombreExamen());
             enviarDividido2.executeUpdate();
 
             //Envio de los Datos del Turno Perteneciente a un Laboratorista en la Tabla Turno

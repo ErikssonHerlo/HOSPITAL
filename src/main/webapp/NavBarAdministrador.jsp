@@ -23,7 +23,7 @@
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ver Informacion <span class="caret"></span></a>
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ver Informacion <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <!-- <li><a href="EjemploArchivos/Guia-1W205777444%20JOSE%20LOPEZ.pdf" target="__blank"/>Nuevo Administrador</li> 
                                     -->
@@ -54,15 +54,15 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Agregar Nueva Informacion <span class="caret"></span></a>
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Agregar Nueva Informacion <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="ArchivosDB/Guia-1W205777444 JOSE LOPEZ.pdf" target="__blank"/>URL</li>
                                     <li><a href="NuevoAdmin.jsp">Nuevo Administrador</a></li>
-                                    <li><a href="">Nuevo Paciente</a></li>
+                                    <li><a href="NuevoPaciente.jsp">Nuevo Paciente</a></li>
                                     <li><a href="#">Nuevo Medico</a></li>
                                     <li><a href="#">Nuevo Laboratorista</a></li>
                                     <li><a href="NuevoExamen.jsp">Nuevo Examen</a></li>
-                                    <li><a href="#">Nueva Consulta</a></li>
+                                    <li><a href="NuevaConsulta.jsp">Nueva Consulta</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li class="dropdown-header">Citas</li>
                                     <li><a href="#">Nueva Cita Laboratorista</a></li>
@@ -70,7 +70,7 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modificar Informacion <span class="caret"></span></a>
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modificar Informacion <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">Editar Administrador</a></li>
                                     <li><a href="#">Editar Paciente</a></li>
@@ -82,7 +82,7 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                    
                                     <li class="dropdown-header">Informes</li>
@@ -101,6 +101,10 @@
                                 </ul>
                             </li>
                             <li class="dropdown"><a href="CerrarSesion">Cerrar Sesion</a></li>
+                            <li class="dropdown"><a href=""></a>__________</li>
+                            
+                            <li class="dropdown"><a href=""><%=(String)request.getSession().getAttribute("nombreUsuario")%></a></li>
+                            
                         </ul>
                     </div>
                 </div>
