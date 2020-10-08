@@ -26,7 +26,13 @@
 
     <h1 class="align-content-lg-center">Ultimas Consultas Medicas Realizados al Paciente <%=request.getSession().getAttribute("nombreUsuario")
             %></h1>
-            
+            <c:choose>
+                <c:when test="${Reporte.isEmpty()}">
+                <div class="alert alert-danger">
+                    El Paciente No Ha Realizado Ninguna Consulta en Nuestro Hospital
+                </div>
+            </c:when>
+            <c:otherwise>
             <table class="table table-bordered  table-hover" >
                 <thead>
                 <tr>
@@ -37,6 +43,7 @@
                 
                 <th>Fecha</th>
                 <th>Hora</th>
+                <th>Cita Medica</th>
             
             </tr>
                 </thead>
@@ -50,12 +57,15 @@
                     
                     <td>${resultado.getFecha()}</td>
                     <td>${resultado.getHora()}</td>
+                    <td>${resultado.getCodigoCitaMedica()}</td>
                 </tr>
                 </tbody>
             </c:forEach>
         </table>
+</c:otherwise>
 
- 
+
+        </c:choose>
             
         </div>
         <% }%>

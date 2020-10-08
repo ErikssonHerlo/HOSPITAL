@@ -121,4 +121,35 @@ public class AccesoAResultado {
           
     return historialLab;
     }
+           public List<ReportePaciente> historialLaboratorioReporte1(){
+        
+        List<ReportePaciente> historialLab = new ArrayList<>();
+        historialLab.clear();
+ 
+        try {
+            String query = "SELECT r.Codigo_Resultado, u.Nombre, l.Nombre AS Laboratorista, e.Nombre AS Nombre_Examen, r.Informe_Examen, r.Fecha, r.Hora FROM Usuario u INNER JOIN Resultado r ON u.Codigo = r.Paciente_Usuario_Codigo INNER JOIN Examen e ON e.Codigo = r.Examen_Codigo INNER JOIN Laboratorista l ON l.Usuario_Codigo = r.Laboratorista_Usuario_Codigo ORDER BY r.Fecha ASC";
+        PreparedStatement enviar = Conexion.conexion.prepareStatement(query);
+        ResultSet rs = null;
+        
+        
+        
+        rs=enviar.executeQuery();   
+        
+            while (rs.next()) {
+                historialLab.add(new ReportePaciente(rs.getInt("Codigo_Resultado"),
+                        rs.getString("Nombre"),
+                        rs.getString("Laboratorista"), 
+                        rs.getString("Nombre_Examen"), 
+                         rs.getString("Informe_Examen"), 
+                         rs.getString("Fecha"), 
+                         rs.getString("Hora"))); 
+                
+            }
+          
+        } catch (Exception e) {
+
+        }
+          
+    return historialLab;
+    }
 }

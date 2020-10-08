@@ -29,7 +29,13 @@
 
     <h1 class="align-content-lg-center">Ultimos Examenes de Laboratorio Realizados al Paciente <%=request.getSession().getAttribute("nombreUsuario")
             %></h1>
-            
+            <c:choose>
+                <c:when test="${Reporte.isEmpty()}">
+                <div class="alert alert-danger">
+                    El Paciente No Ha Realizado Ningun Examen en Nuestro Laboratorio
+                </div>
+            </c:when>
+            <c:otherwise>
             <table class="table table-bordered  table-hover" >
                 <thead class="thead-dark">
                 <tr>
@@ -59,7 +65,12 @@
                 </tbody>
             </c:forEach>
         </table>
-      
+
+</c:otherwise>
+
+
+        </c:choose>
+
         </div>
         <% }%>
         <% } else if((String)request.getSession().getAttribute("codigoUsuario") != null && (int)request.getSession().getAttribute("tipoUsuario") == 2) { %>

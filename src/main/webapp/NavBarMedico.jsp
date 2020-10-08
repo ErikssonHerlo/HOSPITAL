@@ -31,7 +31,7 @@
                                     -->
                                    
                                     <li class="dropdown-header">Nuevo</li>
-                                    <li><a href="#">Realizar Informe de Cita Medica</a></li>
+                                    <li><a href="NuevoInforme_Medico.jsp">Realizar Informe de Cita Medica</a></li>
                                    
                                     
                                     <li role="separator" class="divider"></li>
@@ -62,14 +62,14 @@
                                 <ul class="dropdown-menu">
                                    
                                     <li class="dropdown-header">Historial Medico</li>
-                                    <li><a href="#">Historial Medico de Todos los Pacientes</a></li>
+                                    <li><a href="Historial_Medico.jsp">Historial Medico de Todos los Pacientes</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li class="dropdown-header">Citas Medicas</li>
-                                    <li><a href="#">Todas las Citas Agendadas</a></li>
-                                    <li><a href="#">Citas Agendadas para Hoy</a></li>
+                                    <li><a href="Reporte2_Medico.jsp">Citas Agendadas en un Intervalo de Tiempo</a></li>
+                                    <li><a href="Reporte3_Medico.jsp">Citas Agendadas para Hoy</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li class="dropdown-header">Informes </li>
-                                    <li><a href="#">Pacientes con Mas Informes</a></li>
+                                    <li><a href="Reporte4_Medico.jsp">Pacientes con Mas Informes</a></li>
                                    
                                 </ul>
                             </li>

@@ -384,7 +384,7 @@ public class LecturaArchivo {
         System.out.println(" <========>Informe");
         Informe informe;
         for (int i = 0; i < listadoInforme.getLength(); i++) {
-            informe = new Informe(1, "", "", "", "", "", true);
+            informe = new Informe(1, "", "", "", "", "", true,"Sin Cita Medica Previa");
             // Cojo el nodo actual
             Node nodo = listadoInforme.item(i);
             // Compruebo si el nodo es un elemento

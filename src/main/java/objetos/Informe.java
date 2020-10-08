@@ -18,8 +18,9 @@ public class Informe {
     private String fecha;
     private String hora;
     private boolean estado;
+    private String codigoCitaMedica;
 
-    /**
+       /**
      * Clase Informe, que contendra todos los datos de un Informe creado por un
      * Medico despues de una consulta o desde la carga de Archivos
      *
@@ -30,8 +31,10 @@ public class Informe {
      * @param fecha
      * @param hora
      * @param estado
+     * @param codigoCitaMedica
      */
-    public Informe(int codigoInforme, String codigoPaciente, String codigoMedico, String descripcion, String fecha, String hora, boolean estado) {
+    
+    public Informe(int codigoInforme, String codigoPaciente, String codigoMedico, String descripcion, String fecha, String hora, boolean estado, String codigoCitaMedica) {
         this.codigoInforme = codigoInforme;
         this.codigoPaciente = codigoPaciente;
         this.codigoMedico = codigoMedico;
@@ -39,6 +42,7 @@ public class Informe {
         this.fecha = fecha;
         this.hora = hora;
         this.estado = estado;
+        this.codigoCitaMedica = codigoCitaMedica;
     }
 
     public int getCodigoInforme() {
@@ -69,6 +73,10 @@ public class Informe {
         return estado;
     }
 
+    public String getCodigoCitaMedica() {
+        return codigoCitaMedica;
+    }
+
     public void setCodigoInforme(int codigoInforme) {
         this.codigoInforme = codigoInforme;
     }
@@ -97,4 +105,12 @@ public class Informe {
         this.estado = estado;
     }
 
+    public void setCodigoCitaMedica(String codigoCitaMedica) {
+        this.codigoCitaMedica = codigoCitaMedica;
+    }
+ 
+
+
+    
+  
 }

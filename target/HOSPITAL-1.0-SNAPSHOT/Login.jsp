@@ -60,7 +60,7 @@
        
             <center>
            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">¿No tienes una Cuenta? Registrate</a>
+           <a class="dropdown-item" href="NuevoPacienteLogin.jsp">¿No tienes una Cuenta? Registrate</a>
             </center>
             
 

@@ -23,6 +23,8 @@ public class ReportePaciente {
     private String informeExamen;
     private String fecha;
     private String hora;
+    private String codigoCitaMedica;
+    private boolean estado;
 /**
  * CONSTRUCTOR PARA EL PRIMER REPORTE
  * @param codigoResultado
@@ -50,18 +52,29 @@ public class ReportePaciente {
  * @param descripcion
  * @param fecha
  * @param hora 
+ * @param codigoCitaMedica
  */
-        public ReportePaciente(int codigoInforme, String nombrePaciente, String nombreMedico, String descripcion, String fecha, String hora) {
+        public ReportePaciente(int codigoInforme, String nombrePaciente, String nombreMedico,String descripcion, String fecha, String hora, String codigoCitaMedica, boolean estado){ 
         this.codigoInforme = codigoInforme;
         this.nombrePaciente = nombrePaciente;
         this.nombreMedico = nombreMedico;
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.hora = hora;
+        this.codigoCitaMedica = codigoCitaMedica;
+        this.estado = estado;
+    }
+
+    public int getCodigoResultado() {
+        return codigoResultado;
     }
 
     public int getCodigoInforme() {
         return codigoInforme;
+    }
+
+    public String getNombrePaciente() {
+        return nombrePaciente;
     }
 
     public String getNombreMedico() {
@@ -74,15 +87,6 @@ public class ReportePaciente {
 
     public String getDescripcion() {
         return descripcion;
-    }
-    
-    
-    public int getCodigoResultado() {
-        return codigoResultado;
-    }
-
-    public String getNombrePaciente() {
-        return nombrePaciente;
     }
 
     public String getCodigoLaboratorista() {
@@ -109,8 +113,24 @@ public class ReportePaciente {
         return hora;
     }
 
+    public String getCodigoCitaMedica() {
+        return codigoCitaMedica;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setCodigoResultado(int codigoResultado) {
+        this.codigoResultado = codigoResultado;
+    }
+
     public void setCodigoInforme(int codigoInforme) {
         this.codigoInforme = codigoInforme;
+    }
+
+    public void setNombrePaciente(String nombrePaciente) {
+        this.nombrePaciente = nombrePaciente;
     }
 
     public void setNombreMedico(String nombreMedico) {
@@ -123,14 +143,6 @@ public class ReportePaciente {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public void setCodigoResultado(int codigoResultado) {
-        this.codigoResultado = codigoResultado;
-    }
-
-    public void setNombrePaciente(String nombrePaciente) {
-        this.nombrePaciente = nombrePaciente;
     }
 
     public void setCodigoLaboratorista(String codigoLaboratorista) {
@@ -157,5 +169,14 @@ public class ReportePaciente {
         this.hora = hora;
     }
 
+    public void setCodigoCitaMedica(String codigoCitaMedica) {
+        this.codigoCitaMedica = codigoCitaMedica;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+ 
+    
     
 }

@@ -58,7 +58,7 @@
                 </tbody>
             </c:forEach>
         </table>
-            
+   
      <h1 class="align-content-lg-center">Historial del Laboratorio del Paciente <%=request.getSession().getAttribute("nombreUsuario")
             %></h1>
             <div class="table-wrapper-scroll-y my-custom-scrollbar">
@@ -91,6 +91,11 @@
             </c:forEach>
         </table>
             </div>
+            <c:if test="${HistorialLaboratorio.isEmpty()}">
+                 <div class="alert alert-danger">
+                El Paciente No Ha Realizado Ningun Examen en Nuestro Laboratorio
+            </div>
+            </c:if>
             
         </div>
         <% }%>

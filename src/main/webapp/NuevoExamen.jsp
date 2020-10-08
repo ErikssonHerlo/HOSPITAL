@@ -15,7 +15,22 @@
         <% if ((String) request.getSession().getAttribute("codigoUsuario") != null && (int) request.getSession().getAttribute("tipoUsuario") == 1) {%>
         <% if (request.getAttribute("Exitoso") == null) {%>
         <div class="container" style="padding-top: 70px" >
-            <script type="text/javascript">
+                  <script type="text/javascript">
+                function validar(obj) {
+                    var d = document.formulario;
+                    if (obj.checked == true) {
+                        d.formatoInforme.disabled = false;
+                    } else {
+                        d.formatoInforme.disabled = true;
+                    }
+                }
+                function deshabilitar(obj) {
+                    var d = document.formulario;
+                    if (obj.checked == true) {
+                        d.formatoInforme.disabled = true;
+                    } 
+                }
+            </script>
 
             <h1 class="align-content-lg-center">Nuevo Examen</h1>
 

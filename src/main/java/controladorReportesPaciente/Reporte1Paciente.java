@@ -44,15 +44,15 @@ public class Reporte1Paciente extends HttpServlet {
         
                AccesoAResultado acceso = new AccesoAResultado();
         String codigoUsuario = (String)request.getSession().getAttribute("codigoUsuario");
-        if(!acceso.reporte1(codigoUsuario).isEmpty()){
+       // if(!acceso.reporte1(codigoUsuario).isEmpty()){
             request.setAttribute("Reporte", acceso.reporte1(codigoUsuario));
-        } else {
+        /*} else {
               List<ReportePaciente> reporteVacio = new ArrayList<>();
               reporteVacio.add(new ReportePaciente(0, "El Paciente No Cuenta con Ningun Resultado en Nuestro Laboratorio", "", "", "", "", ""));
             request.setAttribute("Reporte", reporteVacio);
            
      
-        }
+        }*/
         RequestDispatcher despachar = request.getRequestDispatcher("Reporte1_Paciente.jsp");
         despachar.forward(request, response);
         for (Object elementos: acceso.reporte1(codigoUsuario)) {

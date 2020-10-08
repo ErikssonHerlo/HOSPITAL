@@ -59,8 +59,8 @@
                                     <li><a href="ArchivosDB/Guia-1W205777444 JOSE LOPEZ.pdf" target="__blank"/>URL</li>
                                     <li><a href="NuevoAdmin.jsp">Nuevo Administrador</a></li>
                                     <li><a href="NuevoPaciente.jsp">Nuevo Paciente</a></li>
-                                    <li><a href="#">Nuevo Medico</a></li>
-                                    <li><a href="#">Nuevo Laboratorista</a></li>
+                                    <li><a href="NuevoMedico.jsp">Nuevo Medico</a></li>
+                                    <li><a href="NuevoLaboratorista.jsp">Nuevo Laboratorista</a></li>
                                     <li><a href="NuevoExamen.jsp">Nuevo Examen</a></li>
                                     <li><a href="NuevaConsulta.jsp">Nueva Consulta</a></li>
                                     <li role="separator" class="divider"></li>

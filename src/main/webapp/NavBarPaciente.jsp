@@ -29,7 +29,7 @@
                                
                                    
                                     <li class="dropdown-header">Cita Medica</li>
-                                    <li><a href="#">Nueva Cita Medica</a></li>
+                                    <li><a href="BusquedaMedico.jsp">Nueva Cita Medica</a></li>
                                     
                                     <li role="separator" class="divider"></li>
                                     <li class="dropdown-header">Cita Laboratorio</li>
@@ -40,8 +40,7 @@
                             <li class="dropdown">
                                 <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ver Informacion <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                               
-                                   
+
                                     <li class="dropdown-header">Cita Medica</li>
                                     <li><a href="#">Citas Programadas con el Medico</a></li>
                                     
