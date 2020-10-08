@@ -29,14 +29,14 @@
                                     -->
                                    
                                     <li class="dropdown-header">Usuarios</li>
-                                    <li><a href="#">Pacientes</a></li>
-                                    <li><a href="#">Medicos</a></li>
-                                    <li><a href="#">Laboratoristas</a></li>
+                                    <li><a href="ListarPacientes.jsp">Pacientes</a></li>
+                                    <li><a href="ListarMedicos.jsp">Medicos</a></li>
+                                    <li><a href="ListarLaboratoristas.jsp">Laboratoristas</a></li>
                                     <li><a href="#">Administradores</a></li>
                                     
                                     <li role="separator" class="divider"></li>
                                     <li class="dropdown-header">Servicios</li>
-                                    <li><a href="#">Examenes</a></li>
+                                    <li><a href="ListarExamenes.jsp">Examenes</a></li>
                                     <li><a href="#">Consultas</a></li>
                                     
                                     <li role="separator" class="divider"></li>
@@ -56,7 +56,7 @@
                             <li class="dropdown">
                                 <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Agregar Nueva Informacion <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="ArchivosDB/Guia-1W205777444 JOSE LOPEZ.pdf" target="__blank"/>URL</li>
+                                    
                                     <li><a href="NuevoAdmin.jsp">Nuevo Administrador</a></li>
                                     <li><a href="NuevoPaciente.jsp">Nuevo Paciente</a></li>
                                     <li><a href="NuevoMedico.jsp">Nuevo Medico</a></li>
@@ -86,14 +86,14 @@
                                 <ul class="dropdown-menu">
                                    
                                     <li class="dropdown-header">Informes</li>
-                                    <li><a href="#">Medicos con mas Informes</a></li>
+                                    <li><a href="Reporte1_Admin.jsp">Medicos con mas Informes</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li class="dropdown-header">Ingresos</li>
-                                    <li><a href="#">Ingresos obtenidos por Medico</a></li>
-                                    <li><a href="#">Ingresos obtenidos por Paciente</a></li>
+                                    <li><a href="Reporte2_Admin.jsp">Ingresos obtenidos por Medico</a></li>
+                                    <li><a href="Reporte6_Admin.jsp">Ingresos obtenidos por Paciente</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li class="dropdown-header">Citas</li>
-                                    <li><a href="#">Medicos con menos Citas</a></li>
+                                    <li><a href="Reporte3_Admin.jsp">Medicos con menos Citas</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li class="dropdown-header">Laboratorio</li>
                                     <li><a href="#">Examenes con mayor demanda</a></li>

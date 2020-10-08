@@ -45,15 +45,8 @@ public class Reporte3Paciente extends HttpServlet {
         
                AccesoAInforme acceso = new AccesoAInforme();
         String codigoUsuario = (String)request.getSession().getAttribute("codigoUsuario");
-      // if(!acceso.reporte3(codigoUsuario).isEmpty()) {
             request.setAttribute("Reporte", acceso.reporte3(codigoUsuario));
-       /*} else {
-             List<ReportePaciente> reporteVacio = new ArrayList<>();
-             reporteVacio.add(new ReportePaciente(0, "El Paciente No Cuenta con Ninguna Consulta en Nuestro Hospital", "", "", "", ""));
-           request.setAttribute("Reporte", reporteVacio);
-           
-     
-        }*/
+  
         RequestDispatcher despachar = request.getRequestDispatcher("Reporte3_Paciente.jsp");
         despachar.forward(request, response);
         for (Object elementos: acceso.reporte3(codigoUsuario)) {

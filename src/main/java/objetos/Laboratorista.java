@@ -24,13 +24,14 @@ public class Laboratorista extends Usuario {
      * @param DPI
      * @param telefono
      * @param correo
-     * @param password 
+     * @param password
      * @param tipoUsuario
      * Atributos Unicos de la Clase Laboratorista:
      * @param registro
      * @param nombreExamen
      * @param fechaInicio
      * @param estado
+     * @param codigoExamen 
      */
     public Laboratorista(String codigo, String nombre, String DPI, String telefono, String correo, String password, int tipoUsuario, String registro, String nombreExamen, String fechaInicio, boolean estado, int codigoExamen) {
         super(codigo, nombre, DPI, telefono, correo, password, tipoUsuario);

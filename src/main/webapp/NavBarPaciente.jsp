@@ -58,11 +58,11 @@
                                    
                                     <li class="dropdown-header">Laboratorio</li>
                                     <li><a href="Reporte1_Paciente.jsp">Ultimos Examenes Realizados</a></li>
-                                    <li><a href="#">Examenes Realizados de un Tipo en Especifico</a></li>
+                                    <li><a href="Reporte2_Paciente.jsp">Examenes Realizados de un Tipo en Especifico</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li class="dropdown-header">Consultas Medicas</li>
                                     <li><a href="Reporte3_Paciente.jsp">Ultimas Consultas Realizadas</a></li>
-                                    <li><a href="#">Consultas Realizadas por un Medico en Especifico</a></li>
+                                    <li><a href="Reporte4_Paciente.jsp">Consultas Realizadas por un Medico en Especifico</a></li>
                                  
                                 </ul>
                             </li>

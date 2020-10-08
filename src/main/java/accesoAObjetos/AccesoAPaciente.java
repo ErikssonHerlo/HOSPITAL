@@ -7,8 +7,12 @@ package accesoAObjetos;
 
 import conexionMySQL.Conexion;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import objetos.Paciente;
+import objetos.ReportePaciente;
 
 /**
  *
@@ -54,5 +58,164 @@ public class AccesoAPaciente {
             return false;
         }
 
+    }
+    /**
+     * METODO PARA LISTAR A TODOS LOS PACIENTES INGRESADOS EN LA BASE DE DATOS
+     * @return 
+     */
+    public List<Paciente> listarPacientes(){
+        
+        List<Paciente> reporte = new ArrayList<>();
+        reporte.clear();
+ 
+        try {
+            String query = "SELECT u.Codigo, u.Nombre, u.DPI, u.Telefono, u.Correo, p.Sexo, p.Nacimiento, p.Peso, p.Tipo_Sangre FROM Usuario u INNER JOIN Paciente p ON p.Usuario_Codigo = u.Codigo";    
+            PreparedStatement enviar = Conexion.conexion.prepareStatement(query);
+        ResultSet rs = null;
+        
+        rs=enviar.executeQuery();   
+        
+            while (rs.next()) {
+                reporte.add(new Paciente(rs.getString("Codigo"),
+                        rs.getString("Nombre"),
+                        rs.getString("DPI"),
+                        rs.getString("Telefono"),
+                        rs.getString("Correo"),
+                        "vacio", 3, rs.getString("Sexo"),
+                        rs.getString("Nacimiento"),
+                        rs.getString("Peso"),
+                        rs.getString("Tipo_Sangre"),
+                        true));
+                        
+                     
+                
+            }
+          
+        } catch (Exception e) {
+
+        }
+          
+    return reporte;
+    }
+    /**
+     * METODO PARA LISTAR PACIENTES POR NOMBRE
+     * @param nombre
+     * @return 
+     */
+    public List<Paciente> listarPacientesNombre(String nombre){
+        
+        List<Paciente> reporte = new ArrayList<>();
+        reporte.clear();
+ 
+        try {
+            String query = "SELECT u.Codigo, u.Nombre, u.DPI, u.Telefono, u.Correo, p.Sexo, p.Nacimiento, p.Peso, p.Tipo_Sangre FROM Usuario u INNER JOIN Paciente p ON p.Usuario_Codigo = u.Codigo WHERE p.Nombre = ?";    
+            PreparedStatement enviar = Conexion.conexion.prepareStatement(query);
+        ResultSet rs = null;
+         enviar.setString(1, nombre);
+        
+        rs=enviar.executeQuery();   
+        
+            while (rs.next()) {
+                reporte.add(new Paciente(rs.getString("Codigo"),
+                        rs.getString("Nombre"),
+                        rs.getString("DPI"),
+                        rs.getString("Telefono"),
+                        rs.getString("Correo"),
+                        "vacio", 3, rs.getString("Sexo"),
+                        rs.getString("Nacimiento"),
+                        rs.getString("Peso"),
+                        rs.getString("Tipo_Sangre"),
+                        true));
+                        
+                     
+                
+            }
+          
+        } catch (Exception e) {
+
+        }
+          
+    return reporte;
+    }
+    /**
+     * METODO PARA LISTAR PACIENTES POR CODIGO
+     * @param codigo
+     * @return 
+     */
+        public List<Paciente> listarPacientesCodigo(String codigo){
+        
+        List<Paciente> reporte = new ArrayList<>();
+        reporte.clear();
+ 
+        try {
+            String query = "SELECT u.Codigo, u.Nombre, u.DPI, u.Telefono, u.Correo, p.Sexo, p.Nacimiento, p.Peso, p.Tipo_Sangre FROM Usuario u INNER JOIN Paciente p ON p.Usuario_Codigo = u.Codigo WHERE p.Usuario_Codigo = ?";    
+            PreparedStatement enviar = Conexion.conexion.prepareStatement(query);
+        ResultSet rs = null;
+         enviar.setString(1, codigo);
+        
+        rs=enviar.executeQuery();   
+        
+            while (rs.next()) {
+                reporte.add(new Paciente(rs.getString("Codigo"),
+                        rs.getString("Nombre"),
+                        rs.getString("DPI"),
+                        rs.getString("Telefono"),
+                        rs.getString("Correo"),
+                        "vacio", 3, rs.getString("Sexo"),
+                        rs.getString("Nacimiento"),
+                        rs.getString("Peso"),
+                        rs.getString("Tipo_Sangre"),
+                        true));
+                        
+                     
+                
+            }
+          
+        } catch (Exception e) {
+
+        }
+          
+    return reporte;
+    }
+        /**
+         * METODO PARA LISTAR PACIENTES POR MEDIO DE CODIGO Y NOMBRE
+         * @param codigo
+         * @param nombre
+         * @return 
+         */
+          public List<Paciente> listarPacientesCodigoNombre(String codigo, String nombre){
+        
+        List<Paciente> reporte = new ArrayList<>();
+        reporte.clear();
+ 
+        try {
+            String query = "SELECT u.Codigo, u.Nombre, u.DPI, u.Telefono, u.Correo, p.Sexo, p.Nacimiento, p.Peso, p.Tipo_Sangre FROM Usuario u INNER JOIN Paciente p ON p.Usuario_Codigo = u.Codigo WHERE p.Usuario_Codigo = ? AND p.Nombre = ?";    
+            PreparedStatement enviar = Conexion.conexion.prepareStatement(query);
+        ResultSet rs = null;
+         enviar.setString(1, codigo);
+         enviar.setString(2, nombre);
+        
+        rs=enviar.executeQuery();   
+        
+            while (rs.next()) {
+                reporte.add(new Paciente(rs.getString("Codigo"),
+                        rs.getString("Nombre"),
+                        rs.getString("DPI"),
+                        rs.getString("Telefono"),
+                        rs.getString("Correo"),
+                        "vacio", 3, rs.getString("Sexo"),
+                        rs.getString("Nacimiento"),
+                        rs.getString("Peso"),
+                        rs.getString("Tipo_Sangre"),
+                        true));
+                             
+                
+            }
+          
+        } catch (Exception e) {
+
+        }
+          
+    return reporte;
     }
 }

@@ -53,6 +53,10 @@ public class AccesoAAdministrador {
        
 
     }
+    /**
+     * VERIFICACION DEL INGRESO ADECUADO DE LOS ADMINISTRADORES A LA BASE DE DATOS
+     * @return 
+     */
         public boolean verificarEstadoDB(){
         
         Administrador admin = null;
@@ -76,6 +80,11 @@ public class AccesoAAdministrador {
            }
     
     }
+        
+        
+        
+        
+     
         /**
          * Metodo de Validacion, recibe los parametros desde el formulario, verifica si existe el usuario
          * y si este existe, verifica que su contraseña sea correcta

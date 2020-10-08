@@ -63,7 +63,7 @@
                 <c:otherwise>
                     <div class="table-wrapper-scroll-y my-custom-scrollbar">
                     <table class="table table-bordered table-hover" >
-                        <thead class="thead-dark">
+                        <thead>
                             <tr>
                                 <th>Codigo</th>
                                 <th>Medico</th>

@@ -24,11 +24,11 @@
                 <div class="row">
                     <div class="form-group col-md-4">
                         <label for="fechaInicio">Fecha de Inicio: </label>
-                        <input class="form-control" type="date"  name="fechaInicio" id="fechaInicio" min="2019-01-01" max="2025-01-01" required>
+                        <input class="form-control" type="date"  name="fechaInicio" id="fechaInicio" min="2000-01-01" max="2030-01-01" required>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="fechaFinal">Fecha de Finalización: </label>
-                        <input class="form-control" type="date"  name="fechaFinal" id="fechaFinal" min="2019-01-01" max="2025-01-01" required>
+                        <input class="form-control" type="date"  name="fechaFinal" id="fechaFinal" min="2000-01-01" max="2030-01-01" required>
                     </div>
                     <div class="form-group col-md-4">
  

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import objetos.CitaMedico;
+import objetos.ReporteAdmin;
 import objetos.ReporteMedico;
 import objetos.ReportePaciente;
 
@@ -278,5 +279,87 @@ public class AccesoACitaMedico {
         }
         return codigoCitaMedica;
 
+    }
+    
+    
+    /**
+     * METODO UTILIZADO PARA EL REPORTE DE GANANCIAS DE UN MEDICO, EN UN INTERVALO DE TIEMPO
+     * REPORTE 2 - ADMINISTRADOR
+     * @param fechaInicio
+     * @param fechaFinal
+     * @return 
+     */
+               public List<ReporteAdmin> reporte2Admin(String fechaInicio, String fechaFinal){
+        
+        List<ReporteAdmin> reporte = new ArrayList<>();
+        reporte.clear();
+ 
+        try {
+            String query = "SELECT im.idIngresos_Medico, im.Paciente_Usuario_Codigo, im.Medico_Usuario_Codigo, m.Nombre, im.Fecha, im.Total, im.Cita_Medico_Codigo FROM Ingresos_Medico im INNER JOIN Medico m ON m.Usuario_Codigo = im.Medico_Usuario_Codigo WHERE im.Fecha >= ? AND im.Fecha <= ? ORDER BY im.Fecha DESC"; 
+            PreparedStatement enviar = Conexion.conexion.prepareStatement(query);
+        ResultSet rs = null;
+        
+        
+        
+        enviar.setString(1, fechaInicio);
+        enviar.setString(2, fechaFinal);
+        rs=enviar.executeQuery();   
+        
+            while (rs.next()) {
+                reporte.add(new ReporteAdmin(rs.getInt("idIngresos_Medico"),
+                        rs.getString("Paciente_Usuario_Codigo"),
+                        "vacio",
+                        rs.getString("Medico_Usuario_Codigo"),
+                        rs.getString("Nombre"),
+                        rs.getString("Fecha"),
+                        rs.getDouble("Total"), 
+                rs.getInt("Cita_Medico_Codigo")));
+                        
+                
+                
+            }
+          
+        } catch (Exception e) {
+
+        }
+          
+    return reporte;
+    }
+               
+                  public List<ReporteAdmin> reporte6Admin(String fechaInicio, String fechaFinal){
+        
+        List<ReporteAdmin> reporte = new ArrayList<>();
+        reporte.clear();
+ 
+        try {
+            String query = "SELECT im.idIngresos_Medico, im.Paciente_Usuario_Codigo, p.Nombre, im.Medico_Usuario_Codigo, im.Fecha, im.Total, im.Cita_Medico_Codigo FROM Ingresos_Medico im INNER JOIN Paciente p ON p.Usuario_Codigo = im.Paciente_Usuario_Codigo WHERE im.Fecha >= ? AND im.Fecha <= ? ORDER BY im.Fecha DESC"; 
+            PreparedStatement enviar = Conexion.conexion.prepareStatement(query);
+        ResultSet rs = null;
+        
+        
+        
+        enviar.setString(1, fechaInicio);
+        enviar.setString(2, fechaFinal);
+        rs=enviar.executeQuery();   
+        
+            while (rs.next()) {
+                reporte.add(new ReporteAdmin(rs.getInt("idIngresos_Medico"),
+                        rs.getString("Paciente_Usuario_Codigo"),
+                        rs.getString("Nombre"),
+                        rs.getString("Medico_Usuario_Codigo"),
+                        "Vacio",
+                        rs.getString("Fecha"),
+                        rs.getDouble("Total"), 
+                rs.getInt("Cita_Medico_Codigo")));
+                        
+                
+                
+            }
+          
+        } catch (Exception e) {
+
+        }
+          
+    return reporte;
     }
 }

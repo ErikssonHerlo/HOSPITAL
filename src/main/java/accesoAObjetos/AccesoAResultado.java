@@ -89,7 +89,53 @@ public class AccesoAResultado {
           
     return reporte;
     }
-          public List<ReportePaciente> historialLaboratorio(String codigoUsuario){
+     
+     /**
+      * REUTILIZACION DE LA ESTRUCTURA PARA EL REPORTE NO, 2
+      * @param codigoUsuario
+      * @return 
+      */
+public List<ReportePaciente> reporte2Paciente(String codigoUsuario, String fechaInicio, String fechaFinal, String nombreExamen){
+        
+        List<ReportePaciente> reporte = new ArrayList<>();
+        reporte.clear();
+ 
+        try {
+            String query = "SELECT r.Codigo_Resultado, u.Nombre, l.Nombre AS Laboratorista, e.Nombre AS Nombre_Examen, r.Informe_Examen, r.Fecha, r.Hora FROM Usuario u INNER JOIN Resultado r ON u.Codigo = r.Paciente_Usuario_Codigo INNER JOIN Examen e ON e.Codigo = r.Examen_Codigo INNER JOIN Laboratorista l ON l.Usuario_Codigo = r.Laboratorista_Usuario_Codigo WHERE r.Paciente_Usuario_Codigo = ? AND r.Fecha >= ? AND r.Fecha <= ? AND e.Nombre = ? ORDER BY r.Fecha DESC";
+                    
+         PreparedStatement enviar = Conexion.conexion.prepareStatement(query);
+        ResultSet rs = null;
+        
+        
+        enviar.setString(1, codigoUsuario);
+        enviar.setString(2, fechaInicio);
+        enviar.setString(3, fechaFinal);
+        enviar.setString(4, nombreExamen);
+        
+        rs=enviar.executeQuery();   
+        
+            while (rs.next()) {
+                reporte.add(new ReportePaciente(rs.getInt("Codigo_Resultado"),
+                        rs.getString("Nombre"),
+                        rs.getString("Laboratorista"), 
+                        rs.getString("Nombre_Examen"), 
+                         rs.getString("Informe_Examen"), 
+                         rs.getString("Fecha"), 
+                         rs.getString("Hora"))); 
+                
+            }
+          
+        } catch (Exception e) {
+
+        }
+          
+    return reporte;
+    }
+     
+
+
+
+     public List<ReportePaciente> historialLaboratorio(String codigoUsuario){
         
         List<ReportePaciente> historialLab = new ArrayList<>();
         historialLab.clear();

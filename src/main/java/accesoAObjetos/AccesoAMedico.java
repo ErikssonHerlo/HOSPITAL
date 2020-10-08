@@ -371,4 +371,41 @@ public class AccesoAMedico {
           
     return busqueda;
     }
+        /**
+         * METODO PARA LISTAR TODOS LOS MEDICOS REGISTRADOS EN LA BASE DE DATOS
+         * @return 
+         */
+       public List<Medico> listarMedicos(){
+        
+        List<Medico> reporte = new ArrayList<>();
+        reporte.clear();
+ 
+        try {
+            String query = "SELECT u.Codigo, u.Nombre, u.DPI, u.Telefono, u.Correo, m.Colegiado, m.Hora_Entrada, m.Hora_Salida, m.Fecha_Inicio, e.Titulo FROM Usuario u INNER JOIN Medico m ON u.Codigo = m.Usuario_Codigo INNER JOIN Especialidad e ON e.Medico_Usuario_Codigo = m.Usuario_Codigo"; 
+            PreparedStatement enviar = Conexion.conexion.prepareStatement(query);
+        ResultSet rs = null;
+       
+        rs=enviar.executeQuery();   
+        
+            while (rs.next()) {
+                reporte.add(new Medico(rs.getString("Codigo"), 
+                        rs.getString("Nombre"),
+                        rs.getString("DPI"),
+                        rs.getString("Telefono"),
+                        rs.getString("Correo"),
+                        "vacio", 4, 
+                        rs.getInt("Colegiado"),
+                        rs.getString("Hora_Entrada"),
+                        rs.getString("Hora_Salida"),
+                        rs.getString("Fecha_Inicio"), true));
+                        
+                                        
+            }
+          
+        } catch (Exception e) {
+
+        }
+          
+    return reporte;
+    }
 }

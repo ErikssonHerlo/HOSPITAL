@@ -9,8 +9,11 @@ import conexionMySQL.Conexion;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import objetos.Administrador;
 import objetos.Laboratorista;
+import objetos.Medico;
 import objetos.Turno;
 
 /**
@@ -22,7 +25,9 @@ public class AccesoALaboratorista {
     /**
      * Metodo para Insertar Nuevo Laboratorista desde la Carga del Archivo y
      * desde la Vista del Administrador
-     *
+     * VERIFICACION PREVIA
+     * Que el Nombre del Examen se encuentre registrado en la Base de Datos, para poder registrar todos los datos del  Laboratorista
+     * y que no ocurra un desface en los datos
      * @param laboratorista
      * @param turno
      * @return
@@ -138,7 +143,11 @@ public class AccesoALaboratorista {
 
     }
 
-
+/**
+ * METODO QUE VERIFICA SI EL EXAMEN QUE EL USUARIO DESEA ASIGNARLE AL LABORATORISTA SI EXISTE
+ * @param nombreExamen
+ * @return 
+ */
     public boolean verificarExamen(String nombreExamen) {
 
         String codigoExamen = "";
@@ -165,5 +174,39 @@ public class AccesoALaboratorista {
         } else {
             return true;
         }
+    }
+    
+           public List<Laboratorista> listarLaboratositas(){
+        
+        List<Laboratorista> reporte = new ArrayList<>();
+        reporte.clear();
+ 
+        try {
+            String query = "SELECT u.Codigo, u.Nombre, u.DPI, u.Telefono, u.Correo, l.Registro, l.Nombre_Examen, l.Fecha_Inicio, l.Examen_Codigo FROM Usuario u INNER JOIN Laboratorista l ON l.Usuario_Codigo = u.Codigo";
+            PreparedStatement enviar = Conexion.conexion.prepareStatement(query);
+        ResultSet rs = null;
+       
+        rs=enviar.executeQuery();   
+        
+            while (rs.next()) {
+                reporte.add(new Laboratorista(rs.getString("Codigo"), 
+                        rs.getString("Nombre"),
+                        rs.getString("DPI"),
+                        rs.getString("Telefono"),
+                        rs.getString("Correo"),
+                        "vacio", 2, rs.getString("Registro"),
+                        rs.getString("Nombre_Examen"), 
+                        rs.getString("Fecha_Inicio"),
+                        true, rs.getInt("Examen_Codigo")));
+                        
+                        
+                                        
+            }
+          
+        } catch (Exception e) {
+
+        }
+          
+    return reporte;
     }
 }

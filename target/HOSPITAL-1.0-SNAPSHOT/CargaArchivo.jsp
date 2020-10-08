@@ -67,6 +67,7 @@
         <% } else {%>
                        <div class="alert alert-danger">
                 Fallo en la Carga de Archivo
+                
             </div>
                 <br>
                 <CENTER>
